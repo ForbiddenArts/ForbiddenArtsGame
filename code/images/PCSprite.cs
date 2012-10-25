@@ -18,6 +18,7 @@ namespace ForbiddenArtsGame.code.images
 			image = SheetHandler.getSheet("Knight");
 			srcRect = image.Bounds;
 			origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
+            layer = 1.0f;
 		}
 	}
 }

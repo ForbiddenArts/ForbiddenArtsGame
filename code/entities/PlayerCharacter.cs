@@ -31,10 +31,12 @@ namespace ForbiddenArtsGame.code.entities
 				if (keyboard.IsKeyDown(Settings.keyMoveLeft))
 				{
 					this.Move(new Vector2(-2, 0));
+                    Settings.CameraLoc += new Vector2(-20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyMoveRight))
 				{
-					this.Move(new Vector2(2, 0));
+                    this.Move(new Vector2(2, 0));
+                    Settings.CameraLoc += new Vector2(20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
 				{

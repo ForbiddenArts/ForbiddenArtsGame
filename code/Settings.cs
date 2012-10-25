@@ -18,7 +18,7 @@ namespace ForbiddenArtsGame.code
             graphics = _graphics;
 			graphics.ApplyChanges();
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			CameraLoc = Vector2.Zero;
+            CameraLoc = new Vector2(-screenX/2, 0);
         }
 
         private static GraphicsDeviceManager graphics;

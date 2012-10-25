@@ -14,10 +14,24 @@ namespace ForbiddenArtsGame.code.entities
 {
 	class Terrain : Entity
 	{
+        private int[] LAYER_Y_VALUES = { 504, 0, 0, 0, 0 };
+        private float[] LAYER_X_SPEEDS = { 1.26f, 0.8f, 0.5f, 0.42f, 0.3f };
+        private ParallaxComponent[] layers = new ParallaxComponent[5];
 		public Terrain()
 		{
-			currentSprite = new TerrainSprite();
-			loc = new Vector2(0, 400);
+            currentSprite = new TerrainSprite("transparent", new Rectangle(0, 0, 900, 100));
+            loc = new Vector2(0, 660);
+            for (int i = 0; i < 5; i++) {
+                layers[i] = new ParallaxComponent(LAYER_X_SPEEDS[i], LAYER_Y_VALUES[i], (float)(0.5f - (i*0.1f)), "sceneL" + i);
+            }
+            
 		}
-	}
+        public override void Draw(GameTime gameTime)
+        {
+            for (int i = 4; i>=0; i--) {
+                layers[i].Draw(gameTime);
+            }
+ 	            base.Draw(gameTime);
+        }
+	    }
 }

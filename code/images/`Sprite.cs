@@ -70,7 +70,7 @@ namespace ForbiddenArtsGame.code
         protected Texture2D image;
         protected Rectangle srcRect;	//on the sheet
         protected Vector2 origin;
-        protected float layer = 1.0f;
+        protected float layer = 0.0f;
         //all of these in pixels
         protected int sheetLocX { get { return srcRect.Left; } }
         protected int sheetLocY { get { return srcRect.Top; } }

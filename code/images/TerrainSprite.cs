@@ -13,12 +13,11 @@ namespace ForbiddenArtsGame.code.images
 {
 	class TerrainSprite : Sprite
 	{
-		public TerrainSprite()
+		public TerrainSprite(String src, Rectangle bounds)
 		{
-			image = SheetHandler.getSheet("heup");
-			srcRect = image.Bounds;
+			image = SheetHandler.getSheet(src);
+			srcRect = bounds;
 			origin = Vector2.Zero;
-			layer = 0.5f;
 		}
 	}
 }

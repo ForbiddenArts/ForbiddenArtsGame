@@ -63,15 +63,42 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heup.bmp">
-      <Name>heup</Name>
+    <Compile Include="tempproj.bmp">
+      <Name>tempproj</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tempproj.bmp">
-      <Name>tempproj</Name>
+    <Compile Include="sceneL0.png">
+      <Name>sceneL0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sceneL1.png">
+      <Name>sceneL1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sceneL2.png">
+      <Name>sceneL2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sceneL3.png">
+      <Name>sceneL3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sceneL4.png">
+      <Name>sceneL4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="transparent.png">
+      <Name>transparent</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

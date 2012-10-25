@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\entities\ParallaxComponent.cs" />
     <Compile Include="code\entities\projectiles\MeleeProjectile.cs" />
     <Compile Include="code\entities\projectiles\`Projectile.cs" />
     <Compile Include="code\entities\`Character.cs" />
