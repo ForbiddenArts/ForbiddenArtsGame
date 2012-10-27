@@ -13,12 +13,11 @@ namespace ForbiddenArtsGame.code.entities
 {
 	abstract class Mobile : Entity
 	{
-		protected bool onGround = false; //cant jump in mid air
 		protected bool isMobile = true;
 		protected enum Facing { Left, Right };
 		protected Facing facing = Facing.Right;
 		protected Vector2 velocity = Vector2.Zero;
-		protected float updateVelMult = 0.9f;
+		protected float updateVelMult = 0.95f;
 		public Mobile() : this(Vector2.Zero) { }
 		public Mobile(Vector2 loc) : base(loc) { }
 
@@ -32,10 +31,6 @@ namespace ForbiddenArtsGame.code.entities
 			if (isMobile)
 			{
 				loc += velocity;
-				if (!onGround)
-				{
-					velocity.Y += 1f;
-				}
 				if (velocity.Length() > 0.1)
 					velocity = Vector2.Multiply(velocity, updateVelMult);
 				else
@@ -44,6 +39,15 @@ namespace ForbiddenArtsGame.code.entities
 					facing = Facing.Right;
 				else if (velocity.Y < 0)
 					facing = Facing.Left;
+				if (loc.Y > Settings.screenY - 200)
+				{
+					loc.Y = Settings.screenY - 200;
+					velocity.Y = 0;
+				}
+				else if (loc.Y < Settings.screenY - 200)
+				{
+					velocity.Y += 1;
+				}
 			}
 			else
 			{
@@ -53,51 +57,42 @@ namespace ForbiddenArtsGame.code.entities
 		public override void Collide(Entity e)
 		{
 			base.Collide(e);
-			if ((Terrain)e != null)
+			if (isMobile)
 			{
-				if (velocity.Y > 0) velocity.Y = 0;
-				onGround = true;
-				this.loc.Y = e.BoundingBox.Top - currentSprite.sizeX / 2;
-			}
-			else
-			{
-				if (isMobile)
+				Rectangle thisBox = this.BoundingBox;
+				Rectangle thatBox = e.BoundingBox;
+				//entirely inside
+				if (thisBox.Contains(thatBox))
 				{
-					Rectangle thisBox = this.BoundingBox;
-					Rectangle thatBox = e.BoundingBox;
-					//entirely inside
-					if (thisBox.Contains(thatBox))
-					{
-						Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
-						m.Normalize();
-						this.Move(m * 3);
-					}
-					else if (thatBox.Contains(thisBox))
-					{
-						Vector2 m = new Vector2(thisBox.Center.X - thatBox.Center.X, thisBox.Center.Y - thatBox.Center.Y);
-						m.Normalize();
-						this.Move(m * 3);
-					}	//inside from above/below
-					else if ((thisBox.Left < thatBox.Left && thisBox.Right > thatBox.Right) || (thisBox.Left > thatBox.Left && thisBox.Right < thatBox.Right))
-					{
-						if (thisBox.Center.Y > thatBox.Center.Y)
-							this.Move(Vector2.UnitY * 3);
-						else
-							this.Move(Vector2.UnitY * -3);
-					}	//inside from left/right
-					else if ((thisBox.Top < thatBox.Top && thisBox.Bottom > thatBox.Bottom) || (thisBox.Top > thatBox.Top && thisBox.Bottom < thatBox.Bottom))
-					{
-						if (thisBox.Center.X > thatBox.Center.X)
-							this.Move(Vector2.UnitX * 3);
-						else
-							this.Move(Vector2.UnitX * -3);
-					}	//inside from diagonal
+					Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
+					m.Normalize();
+					this.Move(m * 3);
+				}
+				else if (thatBox.Contains(thisBox))
+				{
+					Vector2 m = new Vector2(thisBox.Center.X - thatBox.Center.X, thisBox.Center.Y - thatBox.Center.Y);
+					m.Normalize();
+					this.Move(m * 3);
+				}	//inside from above/below
+				else if ((thisBox.Left < thatBox.Left && thisBox.Right > thatBox.Right) || (thisBox.Left > thatBox.Left && thisBox.Right < thatBox.Right))
+				{
+					if (thisBox.Center.Y > thatBox.Center.Y)
+						this.Move(Vector2.UnitY * 3);
 					else
-					{
-						Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
-						m.Normalize();
-						this.Move(m * 3);
-					}
+						this.Move(Vector2.UnitY * -3);
+				}	//inside from left/right
+				else if ((thisBox.Top < thatBox.Top && thisBox.Bottom > thatBox.Bottom) || (thisBox.Top > thatBox.Top && thisBox.Bottom < thatBox.Bottom))
+				{
+					if (thisBox.Center.X > thatBox.Center.X)
+						this.Move(Vector2.UnitX * 3);
+					else
+						this.Move(Vector2.UnitX * -3);
+				}	//inside from diagonal
+				else
+				{
+					Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
+					m.Normalize();
+					this.Move(m * 3);
 				}
 			}
 		}

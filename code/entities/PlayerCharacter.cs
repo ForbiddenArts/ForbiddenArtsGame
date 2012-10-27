@@ -15,6 +15,8 @@ namespace ForbiddenArtsGame.code.entities
 {
 	class PlayerCharacter : Character
 	{
+		protected bool onGround = false;
+
 		public PlayerCharacter() : this(Vector2.Zero) { }
 		public PlayerCharacter(Vector2 loc) : base(loc)
 		{
@@ -26,22 +28,28 @@ namespace ForbiddenArtsGame.code.entities
 			base.Update(gameTime);
 			KeyboardState keyboard = Keyboard.GetState();
 
+			Settings.CameraLoc.X = loc.X - Settings.screenX / 2 + 100;
+
+			if (loc.Y == Settings.screenY - 200)
+				onGround = true;
+			else
+				onGround = false;
+
 			if (isMobile)
 			{
 				if (keyboard.IsKeyDown(Settings.keyMoveLeft))
 				{
-					this.Move(new Vector2(-2, 0));
-                    Settings.CameraLoc += new Vector2(-20, 0);
+					this.Move(new Vector2(-1, 0));
+                    //Settings.CameraLoc += new Vector2(-20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyMoveRight))
 				{
-                    this.Move(new Vector2(2, 0));
-                    Settings.CameraLoc += new Vector2(20, 0);
+                    this.Move(new Vector2(1, 0));
+                    //Settings.CameraLoc += new Vector2(20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
 				{
-					this.Move(new Vector2(0, -10));
-					onGround = false;
+					this.Move(new Vector2(0, -30));
 				}
 				if (keyboard.IsKeyDown(Settings.keyMeleeAttack))
 				{
