@@ -18,5 +18,26 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			currentSprite = new MeleeEnemySprite();
 		}
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+			Vector2 relativePlayerPosition = Settings.GetPositionFromCamera(loc);
+			if (relativePlayerPosition.X > -250 && relativePlayerPosition.X < 50)
+				this.Attack();
+			else if (relativePlayerPosition.X >= 50)
+			{
+				this.Move(new Vector2(-0.5f, 0));
+			}
+			else
+			{
+				this.Move(new Vector2(0.5f, 0));
+			}
+		}
+
+		protected void Attack()
+		{
+
+		}
 	}
 }

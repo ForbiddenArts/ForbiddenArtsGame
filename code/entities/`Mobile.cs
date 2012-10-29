@@ -46,7 +46,7 @@ namespace ForbiddenArtsGame.code.entities
 				}
 				else if (loc.Y < Settings.screenY - 200)
 				{
-					velocity.Y += 1;
+					velocity.Y += 0.8f;
 				}
 			}
 			else
