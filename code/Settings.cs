@@ -24,6 +24,14 @@ namespace ForbiddenArtsGame.code
         private static GraphicsDeviceManager graphics;
 
 		public static Vector2 CameraLoc;
+		public static Vector2 GetPositionFromCamera(Vector2 loc)
+		{
+			Vector2 ret = loc - CameraLoc;
+			ret.X -= screenX / 2;
+			ret.Y -= screenY / 2;
+			return ret;
+		}
+
 		public static SpriteBatch spriteBatch { get; private set; }
         public static int screenX { get { return graphics.GraphicsDevice.Viewport.Width; } }
         public static int screenY { get { return graphics.GraphicsDevice.Viewport.Height; } }
