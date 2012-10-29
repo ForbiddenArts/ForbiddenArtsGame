@@ -40,12 +40,10 @@ namespace ForbiddenArtsGame.code.entities
 				if (keyboard.IsKeyDown(Settings.keyMoveLeft))
 				{
 					this.Move(new Vector2(-0.7f, 0));
-                    //Settings.CameraLoc += new Vector2(-20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyMoveRight))
 				{
                     this.Move(new Vector2(0.7f, 0));
-                    //Settings.CameraLoc += new Vector2(20, 0);
 				}
 				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
 				{
@@ -60,7 +58,7 @@ namespace ForbiddenArtsGame.code.entities
 
 		protected virtual void Attack()
 		{
-			toBeAdded.Add(new MeleeProjectile(loc, new Vector2(facing == Facing.Left ? -5 : 5, 0), this));
+			toBeAdded.Add(new MeleeProjectile(loc, new Vector2(5 * (int)facing, 0), this));
 		}
 	}
 }

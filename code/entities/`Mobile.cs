@@ -14,7 +14,7 @@ namespace ForbiddenArtsGame.code.entities
 	abstract class Mobile : Entity
 	{
 		protected bool isMobile = true;
-		protected enum Facing { Left, Right };
+		protected enum Facing { Left = -1, Right = 1 };
 		protected Facing facing = Facing.Right;
 		protected Vector2 velocity = Vector2.Zero;
 		protected float updateVelMult = 0.95f;
@@ -35,9 +35,9 @@ namespace ForbiddenArtsGame.code.entities
 					velocity = Vector2.Multiply(velocity, updateVelMult);
 				else
 					velocity = Vector2.Zero;
-				if (velocity.Y > 0)
+				if (velocity.X > 0)
 					facing = Facing.Right;
-				else if (velocity.Y < 0)
+				else if (velocity.X < 0)
 					facing = Facing.Left;
 				if (loc.Y > Settings.screenY - 200)
 				{
