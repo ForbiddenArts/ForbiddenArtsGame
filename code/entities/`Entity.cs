@@ -35,7 +35,7 @@ namespace ForbiddenArtsGame.code.entities
         protected Vector2 loc;
 		protected List<SpellEffect> effects;
 
-		public Rectangle BoundingBox
+		public virtual Rectangle BoundingBox
 		{
 			get
 			{

@@ -17,6 +17,15 @@ namespace ForbiddenArtsGame.code.entities
         private int[] LAYER_Y_VALUES = { 504, 0, 0, 0, 0 };
         private float[] LAYER_X_SPEEDS = { 1.26f, 0.8f, 0.5f, 0.42f, 0.3f };
         private ParallaxComponent[] layers = new ParallaxComponent[5];
+
+		public override Rectangle BoundingBox
+		{
+			get
+			{
+				return new Rectangle((int)loc.X, (int)loc.Y, 1, 1);
+			}
+		}
+
 		public Terrain()
 		{
             currentSprite = new TerrainSprite("transparent", new Rectangle(0, 0, 900, 100));
@@ -31,7 +40,7 @@ namespace ForbiddenArtsGame.code.entities
             for (int i = 4; i>=0; i--) {
                 layers[i].Draw(gameTime);
             }
- 	            base.Draw(gameTime);
+ 	        base.Draw(gameTime);
         }
-	    }
+	}
 }
