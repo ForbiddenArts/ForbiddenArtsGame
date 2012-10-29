@@ -37,10 +37,14 @@ namespace ForbiddenArtsGame.code.entities
 		}
         public override void Draw(GameTime gameTime)
         {
-            for (int i = 4; i>=0; i--) {
+            for (int i = 4; i>=1; i--) {
                 layers[i].Draw(gameTime);
             }
  	        base.Draw(gameTime);
         }
+		public void DrawFront(GameTime gameTime)
+		{
+			layers[0].Draw(gameTime);
+		}
 	}
 }

@@ -15,11 +15,13 @@ namespace ForbiddenArtsGame.code.states
 	class MainGame : GameState
 	{
 		List<Entity> entities;
+		Terrain terrain;
 
 		public MainGame()
 		{
+			terrain = new Terrain();
 			entities = new List<Entity>();
-			entities.Add(new Terrain());
+			entities.Add(terrain);
 			entities.Add(new PlayerCharacter(new Vector2(100, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(200, 200)));
 		}
@@ -84,6 +86,7 @@ namespace ForbiddenArtsGame.code.states
 			{
 				e.Draw(gameTime);
 			}
+			terrain.DrawFront(gameTime);
 		}
 	}
 }
