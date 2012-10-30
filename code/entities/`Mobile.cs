@@ -13,7 +13,7 @@ namespace ForbiddenArtsGame.code.entities
 {
 	enum CollisionDirection
 	{
-		left,right,up,down,all,none
+		left,right,up,down,all,none,fallThrough
 	}
 
 	abstract class Mobile : Entity
@@ -63,7 +63,7 @@ namespace ForbiddenArtsGame.code.entities
 		/// Checks for collision and performs action
 		/// </summary>
 		/// <param name="e">Entity to test for collision</param>
-		public virtual void Collide(Entity e)
+		public override void Collide(Entity e)
 		{
 			base.Collide(e);
 			if (isMobile)
@@ -73,12 +73,17 @@ namespace ForbiddenArtsGame.code.entities
 					case CollisionDirection.all: 
 						Vector2 m = new Vector2(e.BoundingBox.Center.X - BoundingBox.Center.X, e.BoundingBox.Center.Y - BoundingBox.Center.Y);
 						m.Normalize();
-						this.Move(m * 3);
+						this.Move(m * -3);
 						break;
 					case CollisionDirection.left: this.Move(Vector2.UnitX * 3); break;
 					case CollisionDirection.right: this.Move(Vector2.UnitX * -3); break;
 					case CollisionDirection.up: this.Move(Vector2.UnitY * -3); break;
 					case CollisionDirection.down: this.Move(Vector2.UnitY * 3); break;
+					case CollisionDirection.fallThrough:
+						Vector2 m2 = new Vector2(e.BoundingBox.Center.X - BoundingBox.Center.X, e.BoundingBox.Center.Y - BoundingBox.Center.Y);
+						m2.Normalize();
+						this.Move(m2 * -3);
+						break;
 				}				
 			}
 		}
@@ -124,7 +129,7 @@ namespace ForbiddenArtsGame.code.entities
 				//Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
 				//m.Normalize();
 				//this.Move(m * 3);
-				return CollisionDirection.all;
+				return CollisionDirection.fallThrough;
 			}
 		}
 	}

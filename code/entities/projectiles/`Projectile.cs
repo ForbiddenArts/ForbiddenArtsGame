@@ -34,7 +34,7 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 		{
 			base.Update(gameTime);
 			lifetime++;
-			if (lifetime == timetolive)
+			if (lifetime >= timetolive)
 			{
 				toBeRemoved.Add(this);
 			}

@@ -59,8 +59,8 @@ namespace ForbiddenArtsGame.code.entities
 				}
 				if (keyboard.IsKeyDown(Settings.keyCastSpell1))
 				{
-					//if cooldowntime == 0
-					this.Cast(0);
+					if(!Immobolise.isAlive)
+						this.Cast(0);
 				}
 			}
 		}

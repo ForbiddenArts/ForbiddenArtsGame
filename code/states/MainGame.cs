@@ -52,7 +52,8 @@ namespace ForbiddenArtsGame.code.states
 				{
 					ff.MoveNext();
 				}
-				for (; ee.MoveNext(); )
+				//Changed from ee.MoveNext()
+				for (; ff.MoveNext(); )
 				{
 					if (Entity.CollisionCheck(ee.Current, ff.Current, false))
 					{
@@ -68,6 +69,7 @@ namespace ForbiddenArtsGame.code.states
 			foreach (Entity e in entities)
 			{
 				e.Update(gameTime);
+				if(e.toBeAdded.Count > 0)
 				additions.AddRange(e.toBeAdded);
 				removals.AddRange(e.toBeRemoved);
 				e.Updated();
