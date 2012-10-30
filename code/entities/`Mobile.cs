@@ -11,6 +11,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForbiddenArtsGame.code.entities
 {
+	enum CollisionDirection
+	{
+		left,right,up,down,all,none
+	}
+
 	abstract class Mobile : Entity
 	{
 		protected bool isMobile = true;
@@ -54,46 +59,72 @@ namespace ForbiddenArtsGame.code.entities
 				velocity = Vector2.Zero;
 			}
 		}
-		public override void Collide(Entity e)
+		/// <summary>
+		/// Checks for collision and performs action
+		/// </summary>
+		/// <param name="e">Entity to test for collision</param>
+		public virtual void Collide(Entity e)
 		{
 			base.Collide(e);
 			if (isMobile)
 			{
-				Rectangle thisBox = this.BoundingBox;
-				Rectangle thatBox = e.BoundingBox;
-				//entirely inside
-				if (thisBox.Contains(thatBox))
+				switch (Collision(e.BoundingBox))
 				{
-					Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
-					m.Normalize();
-					this.Move(m * 3);
-				}
-				else if (thatBox.Contains(thisBox))
-				{
-					Vector2 m = new Vector2(thisBox.Center.X - thatBox.Center.X, thisBox.Center.Y - thatBox.Center.Y);
-					m.Normalize();
-					this.Move(m * 3);
-				}	//inside from above/below
-				else if ((thisBox.Left < thatBox.Left && thisBox.Right > thatBox.Right) || (thisBox.Left > thatBox.Left && thisBox.Right < thatBox.Right))
-				{
-					if (thisBox.Center.Y > thatBox.Center.Y)
-						this.Move(Vector2.UnitY * 3);
-					else
-						this.Move(Vector2.UnitY * -3);
-				}	//inside from left/right
-				else if ((thisBox.Top < thatBox.Top && thisBox.Bottom > thatBox.Bottom) || (thisBox.Top > thatBox.Top && thisBox.Bottom < thatBox.Bottom))
-				{
-					if (thisBox.Center.X > thatBox.Center.X)
-						this.Move(Vector2.UnitX * 3);
-					else
-						this.Move(Vector2.UnitX * -3);
-				}	//inside from diagonal
+					case CollisionDirection.all: 
+						Vector2 m = new Vector2(e.BoundingBox.Center.X - BoundingBox.Center.X, e.BoundingBox.Center.Y - BoundingBox.Center.Y);
+						m.Normalize();
+						this.Move(m * 3);
+						break;
+					case CollisionDirection.left: this.Move(Vector2.UnitX * 3); break;
+					case CollisionDirection.right: this.Move(Vector2.UnitX * -3); break;
+					case CollisionDirection.up: this.Move(Vector2.UnitY * -3); break;
+					case CollisionDirection.down: this.Move(Vector2.UnitY * 3); break;
+				}				
+			}
+		}
+
+		/// <summary>
+		/// Returns direction of collision between bounding boxes
+		/// </summary>
+		/// <param name="otherBoundingBox">Not this.BoundingBox</param>
+		/// <returns>Direction of collision</returns>
+		protected CollisionDirection Collision(Rectangle otherBoundingBox)
+		{
+			Rectangle thisBox = BoundingBox;
+			Rectangle thatBox = otherBoundingBox;
+
+			//entirely inside
+			if (thisBox.Contains(thatBox))
+			{
+				return CollisionDirection.all;
+			}
+			else if (thatBox.Contains(thisBox))
+			{
+				//Vector2 m = new Vector2(thisBox.Center.X - thatBox.Center.X, thisBox.Center.Y - thatBox.Center.Y);
+				//m.Normalize();
+				//this.Move(m * 3);
+				return CollisionDirection.all;
+			}	//inside from above/below
+			else if ((thisBox.Left < thatBox.Left && thisBox.Right > thatBox.Right) || (thisBox.Left > thatBox.Left && thisBox.Right < thatBox.Right))
+			{
+				if (thisBox.Center.Y > thatBox.Center.Y)
+					return CollisionDirection.down;
 				else
-				{
-					Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
-					m.Normalize();
-					this.Move(m * 3);
-				}
+					return CollisionDirection.up;
+			}	//inside from left/right
+			else if ((thisBox.Top < thatBox.Top && thisBox.Bottom > thatBox.Bottom) || (thisBox.Top > thatBox.Top && thisBox.Bottom < thatBox.Bottom))
+			{
+				if (thisBox.Center.X > thatBox.Center.X)
+					return CollisionDirection.left;
+				else
+					return CollisionDirection.right;
+			}	//inside from diagonal
+			else
+			{
+				//Vector2 m = new Vector2(thatBox.Center.X - thisBox.Center.X, thatBox.Center.Y - thisBox.Center.Y);
+				//m.Normalize();
+				//this.Move(m * 3);
+				return CollisionDirection.all;
 			}
 		}
 	}

@@ -125,8 +125,9 @@
     <Compile Include="code\images\`Animation.cs" />
     <Compile Include="code\Settings.cs" />
     <Compile Include="code\images\`Sprite.cs" />
-    <Compile Include="code\spells\Bind.cs" />
-    <Compile Include="code\spells\`Spell.cs" />
+    <Compile Include="code\entities\projectiles\spells\Bind.cs" />
+    <Compile Include="code\entities\projectiles\spells\Immobolise.cs" />
+    <Compile Include="code\entities\projectiles\spells\`Spell.cs" />
     <Compile Include="code\states\MainGame.cs" />
     <Compile Include="code\states\MenuBindKeys.cs" />
     <Compile Include="code\states\MenuOptions.cs" />

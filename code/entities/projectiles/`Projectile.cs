@@ -25,6 +25,11 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 			updateVelMult = 1.0f;
 		}
 
+		public Projectile()
+		{
+
+		}
+
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
@@ -35,12 +40,16 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 			}
 		}
 
-		public void Collide(Character e)
+		public override void Collide(Entity e)
 		{
-			if (e == source)
-				return;
-			e.Damage(damage);
-			e.Move(new Vector2(0, 10));
+			Character entity = (Character)e;
+			if (entity != null)
+			{
+				if (e == source)
+					return;
+				entity.Damage(damage);
+				entity.Move(new Vector2(0, 10));
+			}
 		}
 	}
 }
