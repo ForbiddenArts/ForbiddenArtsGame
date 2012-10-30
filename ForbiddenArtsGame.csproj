@@ -107,7 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="code\images\MageWalk.cs" />
+    <Compile Include="code\images\MageAnimations.cs" />
     <Compile Include="code\images\ParallaxComponent.cs" />
     <Compile Include="code\entities\projectiles\MeleeProjectile.cs" />
     <Compile Include="code\entities\projectiles\`Projectile.cs" />
