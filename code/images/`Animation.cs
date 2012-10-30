@@ -29,18 +29,19 @@ namespace ForbiddenArtsGame.code.images
 {
 	abstract class Animation : Sprite
 	{
-		protected int frameCount = 1;
-		protected int currentFrame; //range of 0 to frameCount-1
+		protected int frameCount;
+		protected int currentFrame = 0; //range of 0 to frameCount-1
 		protected TimeSpan frameTime; // frames per second, default is 10
-		private TimeSpan sinceLastFrame;
-		private Rectangle firstFrameRect;
+		protected TimeSpan sinceLastFrame;
+		protected Rectangle firstFrameRect;
 
 		public int cycleNum = 0;
 
 		public Animation()
 			: base()
 		{
-			frameTime = new TimeSpan(0, 0, 0, 0, 100);
+			frameTime = new TimeSpan(TimeSpan.TicksPerSecond/10);
+			sinceLastFrame = new TimeSpan(0);
 		}
 
 		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f)
@@ -49,7 +50,7 @@ namespace ForbiddenArtsGame.code.images
 			{
 				firstFrameRect = new Rectangle(srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height);
 			}
-			sinceLastFrame.Add(gameTime.ElapsedGameTime);
+			sinceLastFrame += gameTime.ElapsedGameTime;
 			if (sinceLastFrame > frameTime)
 			{
 				sinceLastFrame -= frameTime;
@@ -68,7 +69,7 @@ namespace ForbiddenArtsGame.code.images
 			base.Draw(gameTime, loc, rotation);
 		}
 
-		public void reset()
+		public virtual void reset()
 		{
 			currentFrame = 0;
 			srcRect.X = firstFrameRect.X;
