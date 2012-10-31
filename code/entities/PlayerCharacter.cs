@@ -162,7 +162,7 @@ namespace ForbiddenArtsGame.code.entities
 			}
 			toBeAdded.Add(new MeleeProjectile(projLoc, projVel, this));
 			SetCurrentAnimation("melee");
-			nextAttackAvailable = gameTime.TotalGameTime + new TimeSpan(0, 0, 1);
+			nextAttackAvailable = gameTime.TotalGameTime + new TimeSpan(TimeSpan.TicksPerSecond);
 		}
 
 		protected virtual void Cast(int spellButton)

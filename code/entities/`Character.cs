@@ -16,6 +16,7 @@ namespace ForbiddenArtsGame.code.entities
 	{
 		public int health = 100;
 		protected bool dead = false;
+		public bool isDead { get { return dead; } }
 		public Rectangle attackRect { get { return new Rectangle(facing == Facing.Left ? (int)loc.X - currentSprite.sizeX : (int)loc.X, (int)loc.Y, currentSprite.sizeX, 1); } }
 
 		public Character() : this(Vector2.Zero) { }
@@ -29,13 +30,6 @@ namespace ForbiddenArtsGame.code.entities
 		public virtual void Damage(int damage)
 		{
 			health -= damage;
-		}
-
-		public override void Update(GameTime gameTime)
-		{
-			base.Update(gameTime);
-			if (health <= 0)
-				toBeRemoved.Add(this);
 		}
 
 		protected abstract void SetCurrentAnimation(string name);

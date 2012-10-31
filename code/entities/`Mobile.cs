@@ -83,6 +83,7 @@ namespace ForbiddenArtsGame.code.entities
 			base.Collide(e);
 			if (this is Projectile || e is Projectile)
 				return;
+			if ((this is Character && ((Character)this).isDead) || e is Character && ((Character)e).isDead) return;
 			if (isMobile)
 			{
 				switch (Collision(e.BoundingBox))
