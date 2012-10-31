@@ -21,6 +21,9 @@ namespace ForbiddenArtsGame.code.entities
 		double coolDownEnd;
 		Dictionary<string, Animation> sprites;
 		string currentSpriteName;
+		TimeSpan nextAttackAvailable;
+		Texture2D HealthSheet;
+		Texture2D SpellSheet;
 
 		public PlayerCharacter() : this(Vector2.Zero) {
 		}
@@ -37,10 +40,24 @@ namespace ForbiddenArtsGame.code.entities
 			sprites.Add("melee", new MageMelee());
 			sprites.Add("walk", new MageWalk());
 			SetCurrentAnimation("idle");
+
+			nextAttackAvailable = new TimeSpan(0);
+
+			HealthSheet = SheetHandler.getSheet("healthsheet");
+			SpellSheet = SheetHandler.getSheet("spelluisheet");
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
+			if (dead)
+			{
+				return;
+			}
+			if (health <= 0)
+			{
+				dead = true;
+				currentSprite = new MageDead();
+			}
 			base.Update(gameTime);
 			KeyboardState keyboard = Keyboard.GetState();
 
@@ -57,12 +74,10 @@ namespace ForbiddenArtsGame.code.entities
 				if (keyboard.IsKeyDown(Settings.keyMoveLeft))
 				{
 					this.Move(new Vector2(-0.7f, 0));
-					SetCurrentAnimation("walk");
 				}
 				if (keyboard.IsKeyDown(Settings.keyMoveRight))
 				{
                     this.Move(new Vector2(0.7f, 0));
-					SetCurrentAnimation("walk");
 				}
 				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
 				{
@@ -95,13 +110,17 @@ namespace ForbiddenArtsGame.code.entities
 			}
 			else
 			{
-				if (velocity.Length() <= 1)
+				if (velocity.Length() > 0.5f && currentSpriteName == "idle")
+				{
+					SetCurrentAnimation("walk");
+				}
+				else if (velocity.Length() <= 0.5f && currentSpriteName == "walk")
 				{
 					SetCurrentAnimation("idle");
 				}
 				else
 				{
-					if (((Animation)currentSprite).cycleNum >= 1)
+					if (((Animation)currentSprite).cycleNum >= 1 && currentSpriteName != "walk")
 						SetCurrentAnimation("idle");
 				}
 			}
@@ -122,6 +141,8 @@ namespace ForbiddenArtsGame.code.entities
 
 		protected virtual void Attack(GameTime gameTime)
 		{
+			if (gameTime.TotalGameTime < nextAttackAvailable)
+				return;
 			Vector2 projLoc;
 			Vector2 projVel;
 			if (Keyboard.GetState().IsKeyDown(Settings.keyMoveLeft))
@@ -141,6 +162,7 @@ namespace ForbiddenArtsGame.code.entities
 			}
 			toBeAdded.Add(new MeleeProjectile(projLoc, projVel, this));
 			SetCurrentAnimation("melee");
+			nextAttackAvailable = gameTime.TotalGameTime + new TimeSpan(0, 0, 1);
 		}
 
 		protected virtual void Cast(int spellButton)
@@ -168,6 +190,16 @@ namespace ForbiddenArtsGame.code.entities
 			return false;
 		}
 
-		
+		public override void Draw(GameTime gameTime)
+		{
+			base.Draw(gameTime);
+
+			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 0, 145, 156), new Rectangle(0, 0, 145, 156), Color.White);//background thing
+			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 27, 145, 126 * (health / 100)), new Rectangle(145, 27, 145, 126 * (health / 100)), Color.White);
+
+			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 144, 0, 144, 153), new Rectangle(0, 0, 144, 153), Color.White);//background thing
+			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 142, 27, 109, 102), new Rectangle(144, 0, 109, 102), Color.White);
+			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 119, 41, 100, 110), new Rectangle(253, 0, 100, 110), Color.White);
+		}
 	}
 }
