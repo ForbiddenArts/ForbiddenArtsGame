@@ -14,10 +14,11 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 {
 	class MeleeProjectile : Projectile
 	{
-		public MeleeProjectile(Vector2 loc, Vector2 vel, Entity source)
+		public MeleeProjectile(Vector2 loc, Vector2 vel, Entity source, int strength = 10)
 			: base(loc, vel, source)
 		{
             currentSprite = new TempProj();
+			damage = strength;
 		}
 	}
 }
