@@ -28,6 +28,8 @@ namespace ForbiddenArtsGame.code.entities
 
 		public void Move(Vector2 delta)
 		{
+			if (Double.IsNaN(delta.X) || Double.IsNaN(delta.Y))
+				throw new ArgumentException("Movement delta has a NaN component", "delta");
 			velocity += delta;
 		}
 
@@ -77,7 +79,10 @@ namespace ForbiddenArtsGame.code.entities
 				{
 					case CollisionDirection.all: 
 						Vector2 m = new Vector2(e.BoundingBox.Center.X - BoundingBox.Center.X, e.BoundingBox.Center.Y - BoundingBox.Center.Y);
-						m.Normalize();
+						if (m.Length() > 0)
+						{
+							m.Normalize();
+						}
 						this.Move(m * -3);
 						break;
 					case CollisionDirection.left: this.Move(Vector2.UnitX * 3); break;
@@ -86,7 +91,10 @@ namespace ForbiddenArtsGame.code.entities
 					case CollisionDirection.down: this.Move(Vector2.UnitY * 3); break;
 					case CollisionDirection.fallThrough:
 						Vector2 m2 = new Vector2(e.BoundingBox.Center.X - BoundingBox.Center.X, e.BoundingBox.Center.Y - BoundingBox.Center.Y);
-						m2.Normalize();
+						if (m2.Length() > 1)
+						{
+							m2.Normalize();
+						}
 						this.Move(m2 * -3);
 						break;
 				}				
