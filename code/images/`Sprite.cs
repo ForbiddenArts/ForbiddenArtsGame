@@ -70,6 +70,7 @@ namespace ForbiddenArtsGame.code
         protected Texture2D image;
         protected Rectangle srcRect;	//on the sheet
         protected Vector2 origin;
+		protected Color overlay = Color.White;
         protected float layer = 0.0f;
         //all of these in pixels
         protected int sheetLocX { get { return srcRect.Left; } }
@@ -84,7 +85,7 @@ namespace ForbiddenArtsGame.code
 			bool onScreen = (relativeloc.X + this.sizeX / 2 > 0) || (relativeloc.X - this.sizeX / 2 < Settings.screenX)
 				|| (relativeloc.Y + this.sizeY / 2 > 0) || (relativeloc.X - this.sizeY / 2 < Settings.screenY);
 			if(onScreen)
-			   Settings.spriteBatch.Draw(image, relativeloc, srcRect, Color.White, rotation, origin, 1.0f, SpriteEffects.None, layer);
+			   Settings.spriteBatch.Draw(image, relativeloc, srcRect, overlay, rotation, origin, 1.0f, SpriteEffects.None, layer);
         }
 
         public void setLayer(float _layer)
@@ -92,5 +93,11 @@ namespace ForbiddenArtsGame.code
             if (_layer > 0.0f && _layer < 1.0f)
 				layer = _layer;
         }
+
+		public Color Overlay
+		{
+			get { return overlay; }
+			set { overlay = value; }
+		}
     }
 }

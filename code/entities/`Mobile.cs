@@ -30,6 +30,11 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			velocity += delta;
 		}
+
+		public void Immobilise()
+		{
+			isMobile = false;
+		}
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

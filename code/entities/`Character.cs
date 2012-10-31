@@ -30,5 +30,12 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			health -= damage;
 		}
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+			if (health <= 0)
+				toBeRemoved.Add(this);
+		}
 	}
 }

@@ -18,6 +18,7 @@ namespace ForbiddenArtsGame.code.entities
 	{
 		protected bool onGround = false;
 		Spell spellA, spellB;
+		double coolDownEnd;
 
 		public PlayerCharacter() : this(Vector2.Zero) {
 		}
@@ -25,6 +26,7 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			currentSprite = new PCSprite();
 			spellA = new Immobolise();
+			spellB = new Fireball();
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -59,8 +61,13 @@ namespace ForbiddenArtsGame.code.entities
 				}
 				if (keyboard.IsKeyDown(Settings.keyCastSpell1))
 				{
-					if(!Immobolise.isAlive)
+					if(CanCast(gameTime))
 						this.Cast(0);
+				}
+				if (keyboard.IsKeyDown(Settings.keyCastSpell2))
+				{
+					if(CanCast(gameTime))
+						this.Cast(1);
 				}
 			}
 		}
@@ -73,8 +80,25 @@ namespace ForbiddenArtsGame.code.entities
 		protected virtual void Cast(int spellButton)
 		{
 			if (spellButton == 0)
+			{
+				spellA = new Immobolise();
 				toBeAdded.Add(spellA.Cast(loc, new Vector2((int)facing, 0), this));
+			}
+			if (spellButton == 1)
+			{
+				spellB = new Fireball();
+				toBeAdded.Add(spellB.Cast(loc, new Vector2((int)facing, 0), this));
+			}
+		}
 
+		private bool CanCast(GameTime gameTime)
+		{
+			if (gameTime.TotalGameTime.TotalSeconds > coolDownEnd)
+			{
+				coolDownEnd = gameTime.TotalGameTime.TotalSeconds+1;
+				return true;
+			}
+			return false;
 		}
 
 		

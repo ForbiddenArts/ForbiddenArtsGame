@@ -88,5 +88,12 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			return;
 		}
+
+		public Sprite Sprite
+		{
+			get { return currentSprite; }
+			set { currentSprite = value; }
+		}
+
     }
 }

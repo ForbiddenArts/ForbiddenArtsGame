@@ -7,18 +7,13 @@ using ForbiddenArtsGame.code.images;
 
 namespace ForbiddenArtsGame.code.entities.projectiles.spells
 {
-	/// <summary>
-	/// Immobolise prevents the character from moving their legs while allowing them to continue attacking.
-	/// Effect is:
-	/// </summary>
-	class Immobolise : Spell
+	class Fireball:Spell
 	{
 		public static bool isAlive;
-		public Immobolise()
+		public Fireball()
 		{
-			name = "Immobolise";
-			currentSprite = new SpellSprite(0);
-			//Projectile vars
+			name = "Fireball";
+			currentSprite = new SpellSprite(1);
 			damage = 0;
 			timetolive = 60;
 		}
@@ -27,7 +22,7 @@ namespace ForbiddenArtsGame.code.entities.projectiles.spells
 		{
 			isAlive = true;
 			this.source = source;
-			velocity = 10 * dir;
+			velocity = 20 * dir;
 			this.loc = new Vector2(loc.X+(200*dir.X),loc.Y);
 			return this;
 		}
@@ -51,7 +46,7 @@ namespace ForbiddenArtsGame.code.entities.projectiles.spells
 				{
 					if (e == source)
 						return;
-					e.AddEffect(new ImmoboliseEffect());
+					e.AddEffect(new FireballEffect());
 					toBeRemoved.Add(this);
 					isAlive = false;
 				}
@@ -60,17 +55,21 @@ namespace ForbiddenArtsGame.code.entities.projectiles.spells
 	}
 
 	/// <summary>
-	/// Immobilises character
+	/// Deals damage to character
 	/// </summary>
-	class ImmoboliseEffect : SpellEffect
+	class FireballEffect : SpellEffect
 	{
+		public FireballEffect()
+		{
+			instant = true;
+		}
 		public override void Effect(entities.Entity e)
 		{
 			Character spellHit = (Character)e;
 			if (spellHit != null)
 			{
-				spellHit.Immobilise();
-				spellHit.Sprite.Overlay = Color.Blue;
+				spellHit.Damage(20);
+				spellHit.Sprite.Overlay = Color.Red;
 			}
 		}
 	}

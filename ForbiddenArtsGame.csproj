@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\entities\projectiles\spells\Fireball.cs" />
     <Compile Include="code\images\MageAnimations.cs" />
     <Compile Include="code\images\ParallaxComponent.cs" />
     <Compile Include="code\entities\projectiles\MeleeProjectile.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="code\images\MeleeEnemySprite.cs" />
     <Compile Include="code\images\MenuBackground.cs" />
     <Compile Include="code\images\PCSprite.cs" />
+    <Compile Include="code\images\Spell.cs" />
     <Compile Include="code\images\TempProj.cs" />
     <Compile Include="code\images\TerrainSprite.cs" />
     <Compile Include="code\SheetHandler.cs" />
