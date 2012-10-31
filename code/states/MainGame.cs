@@ -82,6 +82,12 @@ namespace ForbiddenArtsGame.code.states
 			{
 				entities.Remove(e);
 			}
+
+			if (playerEnding())
+			{
+				//end game
+			}
+
 			return false;
 		}
 
@@ -92,6 +98,44 @@ namespace ForbiddenArtsGame.code.states
 				e.Draw(gameTime);
 			}
 			terrain.DrawFront(gameTime);
+		}
+
+		public bool playerEnding()
+		{
+			bool end = false;
+			foreach (Entity e in entities)
+			{
+				PlayerCharacter charac = e as PlayerCharacter;
+				if (charac != null)
+				{
+					if (charac.getXPosition() >= 10000)
+					{
+						if (!enemyUnaccounted())
+						{
+							end = true;
+							charac.Sprite.Overlay = Color.PaleVioletRed;
+						}
+					}
+				}
+			}
+			return end;
+		}
+
+		public bool enemyUnaccounted()
+		{
+			bool unaccounted = true;
+			foreach (Entity e in entities)
+			{
+				Mobile charact = e as Mobile;
+				if (charact != null)
+				{
+					unaccounted = charact.checkIsMobile();
+					if (unaccounted)
+						break;
+				}
+			}
+
+			return unaccounted;
 		}
 	}
 }

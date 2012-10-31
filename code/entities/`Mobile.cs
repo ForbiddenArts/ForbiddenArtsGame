@@ -37,6 +37,17 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			isMobile = false;
 		}
+
+		public bool checkIsMobile()
+		{
+			return isMobile;
+		}
+
+		public float getXPosition()
+		{
+			return loc.X;
+		}
+
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);

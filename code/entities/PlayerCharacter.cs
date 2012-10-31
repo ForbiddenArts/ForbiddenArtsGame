@@ -70,6 +70,13 @@ namespace ForbiddenArtsGame.code.entities
 						this.Cast(1);
 				}
 			}
+
+			//if (loc.X >= 10000)
+			//{
+			//    this.Sprite.Overlay = Color.PaleVioletRed;
+			//    //something to do with mobile melee enemies and the entities list
+			//    if(
+			//}
 		}
 
 		protected virtual void Attack()
