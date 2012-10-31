@@ -23,7 +23,10 @@ namespace ForbiddenArtsGame.code.states
 			entities = new List<Entity>();
 			entities.Add(terrain);
 			entities.Add(new PlayerCharacter(new Vector2(100, 200)));
-			entities.Add(new Enemy_Melee(new Vector2(200, 200)));
+			entities.Add(new Enemy_Melee(new Vector2(1500, 200)));
+			entities.Add(new Enemy_Melee(new Vector2(4000, 200)));
+			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
+			entities.Add(new Enemy_Melee(new Vector2(8650, 200)));
 		}
 
 		public override bool Update(GameTime gameTime)

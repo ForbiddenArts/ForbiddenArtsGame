@@ -14,6 +14,8 @@ namespace ForbiddenArtsGame.code.entities
 {
 	class Enemy_Melee : Character
 	{
+		private bool hasSeen = false;
+
 		public Enemy_Melee(Vector2 loc) : base(loc)
 		{
 			currentSprite = new MeleeEnemySprite();
@@ -23,15 +25,23 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			base.Update(gameTime);
 			Vector2 relativePlayerPosition = Settings.GetPositionFromCamera(loc);
-			if (relativePlayerPosition.X > -250 && relativePlayerPosition.X < 50)
-				this.Attack();
-			else if (relativePlayerPosition.X >= 50)
+			if (hasSeen)
 			{
-				this.Move(new Vector2(-0.5f, 0));
+				if (relativePlayerPosition.X > -250 && relativePlayerPosition.X < 50)
+					this.Attack();
+				else if (relativePlayerPosition.X >= 50)
+				{
+					this.Move(new Vector2(-0.5f, 0));
+				}
+				else
+				{
+					this.Move(new Vector2(0.5f, 0));
+				}
 			}
 			else
 			{
-				this.Move(new Vector2(0.5f, 0));
+				if (relativePlayerPosition.X > -700 && relativePlayerPosition.X < 700)
+					hasSeen = true;
 			}
 		}
 
