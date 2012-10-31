@@ -12,7 +12,7 @@ using ForbiddenArtsGame.code.entities.projectiles;
 
 namespace ForbiddenArtsGame.code.entities
 {
-	class Character : Mobile
+	abstract class Character : Mobile
 	{
 		public int health = 100;
 		public bool attacking = false;
@@ -37,5 +37,7 @@ namespace ForbiddenArtsGame.code.entities
 			if (health <= 0)
 				toBeRemoved.Add(this);
 		}
+
+		protected abstract void SetCurrentAnimation(string name);
 	}
 }
