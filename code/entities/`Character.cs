@@ -15,7 +15,7 @@ namespace ForbiddenArtsGame.code.entities
 	abstract class Character : Mobile
 	{
 		public int health = 100;
-		public bool attacking = false;
+		protected bool dead = false;
 		public Rectangle attackRect { get { return new Rectangle(facing == Facing.Left ? (int)loc.X - currentSprite.sizeX : (int)loc.X, (int)loc.Y, currentSprite.sizeX, 1); } }
 
 		public Character() : this(Vector2.Zero) { }

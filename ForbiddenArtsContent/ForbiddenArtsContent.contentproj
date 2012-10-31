@@ -143,6 +143,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameDevSpell.png">
+      <Name>GameDevSpell</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="characters\Mage.png">
       <Name>Mage</Name>
       <Importer>TextureImporter</Importer>
@@ -150,8 +157,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameDevSpell.png">
-      <Name>GameDevSpell</Name>
+    <Compile Include="characters\Melee.png">
+      <Name>Melee</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="healthsheet.png">
+      <Name>healthsheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spelluisheet.png">
+      <Name>spelluisheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

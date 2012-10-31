@@ -58,8 +58,13 @@ namespace ForbiddenArtsGame.code.images
 			firstFrameRect = new Rectangle(0, 690, 242, 230);
 			srcRect = new Rectangle(0, 690, 242, 230);
 			origin = new Vector2(121, 115);
-			frameCount = 9;
+			frameCount = 11;
 			image = SheetHandler.getSheet("characters/Mage");
+		}
+
+		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f, int facing = 0)
+		{
+			base.Draw(gameTime, loc, rotation, 0);
 		}
 	}
 
@@ -86,6 +91,19 @@ namespace ForbiddenArtsGame.code.images
 			origin = new Vector2(121, 115);
 			frameCount = 1;
 			currentFrame = -2;
+			image = SheetHandler.getSheet("characters/Mage");
+		}
+	}
+
+	class MageDead : Animation
+	{
+		public MageDead()
+			: base()
+		{
+			firstFrameRect = new Rectangle(0, 1380, 242, 230);
+			srcRect = new Rectangle(0, 1380, 242, 230);
+			origin = new Vector2(121, 115);
+			frameCount = 1;
 			image = SheetHandler.getSheet("characters/Mage");
 		}
 	}

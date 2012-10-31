@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ForbiddenArtsGame.code.entities.projectiles;
 
 namespace ForbiddenArtsGame.code.entities
 {
@@ -23,6 +24,7 @@ namespace ForbiddenArtsGame.code.entities
 		protected Facing facing = Facing.Right;
 		protected Vector2 velocity = Vector2.Zero;
 		protected float updateVelMult = 0.95f;
+
 		public Mobile() : this(Vector2.Zero) { }
 		public Mobile(Vector2 loc) : base(loc) { }
 
@@ -90,6 +92,8 @@ namespace ForbiddenArtsGame.code.entities
 		public override void Collide(Entity e)
 		{
 			base.Collide(e);
+			if (this is Projectile || e is Projectile)
+				return;
 			if (isMobile)
 			{
 				switch (Collision(e.BoundingBox))

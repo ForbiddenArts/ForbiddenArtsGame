@@ -27,9 +27,9 @@ namespace ForbiddenArtsGame.code.entities
 			Vector2 relativePlayerPosition = Settings.GetPositionFromCamera(loc);
 			if (hasSeen)
 			{
-				if (relativePlayerPosition.X > -250 && relativePlayerPosition.X < 50)
+				if (relativePlayerPosition.X > -270 && relativePlayerPosition.X < 70)
 					this.Attack();
-				else if (relativePlayerPosition.X >= 50)
+				else if (relativePlayerPosition.X >= 80)
 				{
 					this.Move(new Vector2(-0.5f, 0));
 				}
