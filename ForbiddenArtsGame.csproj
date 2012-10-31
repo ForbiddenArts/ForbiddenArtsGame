@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="code\entities\projectiles\spells\Fireball.cs" />
     <Compile Include="code\images\MageAnimations.cs" />
+    <Compile Include="code\images\MeleeEnemyAnimations.cs" />
     <Compile Include="code\images\ParallaxComponent.cs" />
     <Compile Include="code\entities\projectiles\MeleeProjectile.cs" />
     <Compile Include="code\entities\projectiles\`Projectile.cs" />

@@ -20,5 +20,10 @@ namespace ForbiddenArtsGame.code.entities.projectiles
             currentSprite = new TempProj();
 			damage = strength;
 		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			return;
+		}
 	}
 }

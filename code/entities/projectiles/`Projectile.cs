@@ -47,8 +47,20 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 				Character c = (Character)e;
 				if (c == source)
 					return;
-				c.Damage(damage);
-				c.Move(new Vector2(0, 10));
+				switch(Collision(e.BoundingBox))
+				{
+					case CollisionDirection.left:
+						c.Move(new Vector2(5, 0));
+						c.Damage(damage);
+						break;
+					case CollisionDirection.right:
+						c.Move(new Vector2(-5, 0));
+						c.Damage(damage);
+						break;
+					default:
+						c.Damage(damage);
+						break;
+				}
 			}
 		}
 	}
