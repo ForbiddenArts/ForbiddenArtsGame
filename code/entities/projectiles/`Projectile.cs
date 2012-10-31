@@ -42,7 +42,15 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 
 		public override void Collide(Entity e)
 		{
-			Character entity = (Character)e;
+			Character entity;
+			try
+			{
+				entity = (Character)e;
+			}
+			catch (InvalidCastException ex)
+			{
+				entity = null;
+			}
 			if (entity != null)
 			{
 				if (e == source)
