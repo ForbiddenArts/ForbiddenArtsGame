@@ -74,7 +74,24 @@ namespace ForbiddenArtsGame.code.entities
 
 		protected virtual void Attack()
 		{
-			toBeAdded.Add(new MeleeProjectile(loc, new Vector2(5 * (int)facing, 0), this));
+			Vector2 projLoc;
+			Vector2 projVel;
+			if (Keyboard.GetState().IsKeyDown(Settings.keyMoveLeft))
+			{
+				projLoc = new Vector2(loc.X - 100, loc.Y);
+				projVel = new Vector2(-5, 0);
+			}
+			else if (Keyboard.GetState().IsKeyDown(Settings.keyMoveLeft))
+			{
+				projLoc = new Vector2(loc.X + 100, loc.Y);
+				projVel = new Vector2(5, 0);
+			}
+			else
+			{
+				projLoc = new Vector2(loc.X + 100 * (int)facing, loc.Y); ;
+				projVel = new Vector2(5 * (int)facing, 0);
+			}
+			toBeAdded.Add(new MeleeProjectile(projLoc, projVel, this));
 		}
 
 		protected virtual void Cast(int spellButton)
