@@ -20,6 +20,7 @@ namespace ForbiddenArtsGame.code.entities
 		Spell spellA, spellB;
 		double coolDownEnd;
 		Dictionary<string, Animation> sprites;
+		string currentSpriteName;
 
 		public PlayerCharacter() : this(Vector2.Zero) {
 		}
@@ -35,9 +36,7 @@ namespace ForbiddenArtsGame.code.entities
 			sprites.Add("jump", new MageJump());
 			sprites.Add("melee", new MageMelee());
 			sprites.Add("walk", new MageWalk());
-			Animation temp;
-			sprites.TryGetValue("idle", out temp);
-			currentSprite = temp;
+			SetCurrentAnimation("idle");
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -89,23 +88,16 @@ namespace ForbiddenArtsGame.code.entities
 			//a bit of current image handling
 			if (!onGround)
 			{
-				Animation fallAni;
-				sprites.TryGetValue("fall", out fallAni);
-				if (currentSprite != fallAni)
+				if (currentSpriteName != "fall" && currentSpriteName != "jump")
 				{
 					SetCurrentAnimation("fall");
 				}
 			}
 			else
 			{
-				Animation temp;
-				sprites.TryGetValue("walk", out temp);
-				if (temp == currentSprite)
+				if (velocity.Length() <= 1)
 				{
-					if (velocity.Length() == 0)
-					{
-						SetCurrentAnimation("idle");
-					}
+					SetCurrentAnimation("idle");
 				}
 				else
 				{
@@ -119,12 +111,13 @@ namespace ForbiddenArtsGame.code.entities
 		{
 			Animation temp;
 			sprites.TryGetValue(name, out temp);
-			if (name == "walk" && temp == currentSprite)
+			if ((name == "walk" || name == "idle") && temp == currentSprite)
 			{
 				return;
 			}
 			temp.reset();
 			currentSprite = temp;
+			currentSpriteName = name;
 		}
 
 		protected virtual void Attack(GameTime gameTime)
