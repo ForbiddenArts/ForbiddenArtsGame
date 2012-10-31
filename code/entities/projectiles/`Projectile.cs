@@ -47,7 +47,9 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 			{
 				entity = (Character)e;
 			}
+#pragma warning disable 168 //"variable not used" warning
 			catch (InvalidCastException ex)
+#pragma warning restore 168
 			{
 				entity = null;
 			}
