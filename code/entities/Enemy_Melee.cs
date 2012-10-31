@@ -45,6 +45,11 @@ namespace ForbiddenArtsGame.code.entities
 			}
 		}
 
+		protected override void SetCurrentAnimation(string name)
+		{
+			throw new NotImplementedException();
+		}
+
 		protected void Attack()
 		{
 

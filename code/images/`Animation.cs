@@ -43,8 +43,8 @@ namespace ForbiddenArtsGame.code.images
 			frameTime = new TimeSpan(TimeSpan.TicksPerSecond/10);
 			sinceLastFrame = new TimeSpan(0);
 		}
-
-		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f)
+		//0 facing is default facing
+		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f, int facing = 0)
 		{
 			if(firstFrameRect == null)
 			{
@@ -66,7 +66,7 @@ namespace ForbiddenArtsGame.code.images
 					srcRect.X += srcRect.Width;
 				}
 			}
-			base.Draw(gameTime, loc, rotation);
+			base.Draw(gameTime, loc, rotation, facing);
 		}
 
 		public virtual void reset()

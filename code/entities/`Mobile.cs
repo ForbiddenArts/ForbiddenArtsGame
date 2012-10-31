@@ -58,10 +58,12 @@ namespace ForbiddenArtsGame.code.entities
 					velocity = Vector2.Multiply(velocity, updateVelMult);
 				else
 					velocity = Vector2.Zero;
+
 				if (velocity.X > 0)
 					facing = Facing.Right;
 				else if (velocity.X < 0)
 					facing = Facing.Left;
+
 				if (loc.Y > Settings.screenY - 200)
 				{
 					loc.Y = Settings.screenY - 200;
@@ -76,6 +78,10 @@ namespace ForbiddenArtsGame.code.entities
 			{
 				velocity = Vector2.Zero;
 			}
+		}
+		public override void Draw(GameTime gameTime)
+		{
+			currentSprite.Draw(gameTime, loc, 0.0f, (int)facing);
 		}
 		/// <summary>
 		/// Checks for collision and performs action

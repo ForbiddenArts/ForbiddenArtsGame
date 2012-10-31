@@ -19,14 +19,24 @@ namespace ForbiddenArtsGame.code.entities
 		protected bool onGround = false;
 		Spell spellA, spellB;
 		double coolDownEnd;
+		Dictionary<string, Animation> sprites;
+		string currentSpriteName;
 
 		public PlayerCharacter() : this(Vector2.Zero) {
 		}
 		public PlayerCharacter(Vector2 loc) : base(loc)
 		{
-			currentSprite = new PCSprite();
 			spellA = new Immobolise();
 			spellB = new Fireball();
+
+			sprites = new Dictionary<string, Animation>();
+			sprites.Add("cast", new MageCast());
+			sprites.Add("fall", new MageFall());
+			sprites.Add("idle", new MageIdle());
+			sprites.Add("jump", new MageJump());
+			sprites.Add("melee", new MageMelee());
+			sprites.Add("walk", new MageWalk());
+			SetCurrentAnimation("idle");
 		}
 
 		public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -41,23 +51,27 @@ namespace ForbiddenArtsGame.code.entities
 			else
 				onGround = false;
 
+			//input handling
 			if (isMobile)
 			{
 				if (keyboard.IsKeyDown(Settings.keyMoveLeft))
 				{
 					this.Move(new Vector2(-0.7f, 0));
+					SetCurrentAnimation("walk");
 				}
 				if (keyboard.IsKeyDown(Settings.keyMoveRight))
 				{
                     this.Move(new Vector2(0.7f, 0));
+					SetCurrentAnimation("walk");
 				}
 				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
 				{
 					this.Move(new Vector2(0, -30));
+					SetCurrentAnimation("jump");
 				}
 				if (keyboard.IsKeyDown(Settings.keyMeleeAttack))
 				{
-					this.Attack();
+					this.Attack(gameTime);
 				}
 				if (keyboard.IsKeyDown(Settings.keyCastSpell1))
 				{
@@ -71,6 +85,27 @@ namespace ForbiddenArtsGame.code.entities
 				}
 			}
 
+			//a bit of current image handling
+			if (!onGround)
+			{
+				if (currentSpriteName != "fall" && currentSpriteName != "jump")
+				{
+					SetCurrentAnimation("fall");
+				}
+			}
+			else
+			{
+				if (velocity.Length() <= 1)
+				{
+					SetCurrentAnimation("idle");
+				}
+				else
+				{
+					if (((Animation)currentSprite).cycleNum >= 1)
+						SetCurrentAnimation("idle");
+				}
+			}
+
 			//if (loc.X >= 10000)
 			//{
 			//    this.Sprite.Overlay = Color.PaleVioletRed;
@@ -79,7 +114,20 @@ namespace ForbiddenArtsGame.code.entities
 			//}
 		}
 
-		protected virtual void Attack()
+		protected override void SetCurrentAnimation(string name)
+		{
+			Animation temp;
+			sprites.TryGetValue(name, out temp);
+			if ((name == "walk" || name == "idle") && temp == currentSprite)
+			{
+				return;
+			}
+			temp.reset();
+			currentSprite = temp;
+			currentSpriteName = name;
+		}
+
+		protected virtual void Attack(GameTime gameTime)
 		{
 			Vector2 projLoc;
 			Vector2 projVel;
@@ -99,6 +147,7 @@ namespace ForbiddenArtsGame.code.entities
 				projVel = new Vector2(5 * (int)facing, 0);
 			}
 			toBeAdded.Add(new MeleeProjectile(projLoc, projVel, this));
+			SetCurrentAnimation("melee");
 		}
 
 		protected virtual void Cast(int spellButton)
@@ -113,6 +162,7 @@ namespace ForbiddenArtsGame.code.entities
 				spellB = new Fireball();
 				toBeAdded.Add(spellB.Cast(loc, new Vector2((int)facing, 0), this));
 			}
+			SetCurrentAnimation("cast");
 		}
 
 		private bool CanCast(GameTime gameTime)

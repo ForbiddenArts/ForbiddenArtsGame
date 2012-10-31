@@ -24,7 +24,7 @@ namespace ForbiddenArtsGame.code.images
 			bottomBorder = new Rectangle(0, 60, 200, 10);
 		}
 
-		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f)
+		public override void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f, int facing = 0)
 		{
 			Settings.spriteBatch.Draw(image, new Rectangle((Settings.screenX / 2) - (topBorder.Width / 2), 100, topBorder.Width, topBorder.Height), topBorder, Color.White);
 			for (int iii = 100; iii < 500; iii += 30)
