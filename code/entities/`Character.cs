@@ -32,6 +32,11 @@ namespace ForbiddenArtsGame.code.entities
 			health -= damage;
 		}
 
+		public bool checkIsDead()
+		{
+			return dead;
+		}
+
 		protected abstract void SetCurrentAnimation(string name);
 	}
 }

@@ -126,11 +126,13 @@ namespace ForbiddenArtsGame.code.states
 			bool unaccounted = true;
 			foreach (Entity e in entities)
 			{
-				Mobile charact = e as Mobile;
+				Enemy_Melee charact = e as Enemy_Melee;
 				if (charact != null)
 				{
 					unaccounted = charact.checkIsMobile();
-					if (unaccounted)
+					if(unaccounted)
+						unaccounted = !charact.checkIsDead();
+					if (!unaccounted)
 						break;
 				}
 			}
