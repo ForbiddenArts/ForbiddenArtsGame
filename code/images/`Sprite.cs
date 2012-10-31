@@ -78,14 +78,29 @@ namespace ForbiddenArtsGame.code
         public int sizeX { get { return srcRect.Width; } }
         public int sizeY { get { return srcRect.Height; } }
 
-        public virtual void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f)
+        public virtual void Draw(GameTime gameTime, Vector2 loc, float rotation = 0.0f, int facing = 0)
         {
 			Vector2 relativeloc = loc - Settings.CameraLoc;
 			//make sure its actually on the screen before drawing
 			bool onScreen = (relativeloc.X + this.sizeX / 2 > 0) || (relativeloc.X - this.sizeX / 2 < Settings.screenX)
 				|| (relativeloc.Y + this.sizeY / 2 > 0) || (relativeloc.X - this.sizeY / 2 < Settings.screenY);
-			if(onScreen)
-			   Settings.spriteBatch.Draw(image, relativeloc, srcRect, overlay, rotation, origin, 1.0f, SpriteEffects.None, layer);
+			if (onScreen)
+			{
+				SpriteEffects effects = SpriteEffects.None;
+				switch (facing)
+				{
+					case -1:
+						effects = SpriteEffects.None;
+						break;
+					case 0:
+						effects = SpriteEffects.FlipHorizontally;
+						break;
+					case 1:
+						effects = SpriteEffects.FlipHorizontally;
+						break;
+				}
+				Settings.spriteBatch.Draw(image, relativeloc, srcRect, overlay, rotation, origin, 1.0f, effects, layer);
+			}
         }
 
         public void setLayer(float _layer)
