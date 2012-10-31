@@ -42,23 +42,13 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 
 		public override void Collide(Entity e)
 		{
-			Character entity;
-			try
+			if (e is Character)
 			{
-				entity = (Character)e;
-			}
-#pragma warning disable 168 //"variable not used" warning
-			catch (InvalidCastException ex)
-#pragma warning restore 168
-			{
-				entity = null;
-			}
-			if (entity != null)
-			{
-				if (e == source)
+				Character c = (Character)e;
+				if (c == source)
 					return;
-				entity.Damage(damage);
-				entity.Move(new Vector2(0, 10));
+				c.Damage(damage);
+				c.Move(new Vector2(0, 10));
 			}
 		}
 	}
