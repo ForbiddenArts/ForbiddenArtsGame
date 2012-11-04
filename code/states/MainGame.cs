@@ -28,12 +28,11 @@ namespace ForbiddenArtsGame.code.states
 			entities = new List<Entity>();
 			entities.Add(terrain);
 			entities.Add(PC);
-			entities.Add(new Enemy_Ranged(new Vector2(800, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(1500, 200)));
-			entities.Add(new Enemy_Melee(new Vector2(4000, 200)));
+			entities.Add(new Enemy_Ranged(new Vector2(4000, 200)));
 			entities.Add(hole);
 			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
-			entities.Add(new Enemy_Melee(new Vector2(8650, 200)));
+			entities.Add(new Enemy_Ranged(new Vector2(8650, 200)));
 		}
 
 		public override bool Update(GameTime gameTime)
@@ -103,6 +102,7 @@ namespace ForbiddenArtsGame.code.states
 			if (playerEnding())
 			{
 				//end game
+				return true;
 			}
 
 			return false;
@@ -127,41 +127,46 @@ namespace ForbiddenArtsGame.code.states
 		public bool playerEnding()
 		{
 			bool end = false;
-			foreach (Entity e in entities)
+			PlayerCharacter charac = entities[1] as PlayerCharacter;
+			if (charac != null)
 			{
-				PlayerCharacter charac = e as PlayerCharacter;
-				if (charac != null)
+				if (charac.getXPosition() >= 10000)
 				{
-					if (charac.getXPosition() >= 10000)
+					if (!enemyUnaccounted())
 					{
-						if (!enemyUnaccounted())
-						{
-							end = true;
-							charac.Sprite.Overlay = Color.PaleVioletRed;
-						}
+						end = true;
 					}
 				}
 			}
 			return end;
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns>false if all dead</returns>
 		public bool enemyUnaccounted()
 		{
-			bool unaccounted = true;
 			foreach (Entity e in entities)
 			{
 				Enemy_Melee charact = e as Enemy_Melee;
 				if (charact != null)
 				{
-					unaccounted = charact.checkIsMobile();
-					if(unaccounted)
-						unaccounted = !charact.checkIsDead();
-					if (!unaccounted)
-						break;
+					if (charact.checkIsMobile() && !charact.checkIsDead())
+					{
+						return true;
+					}
+				}
+				Enemy_Ranged character = e as Enemy_Ranged;
+				if (character != null)
+				{
+					if (character.checkIsMobile() && !character.checkIsDead())
+					{
+						return true;
+					}
 				}
 			}
-
-			return unaccounted;
+			return false;
 		}
 	}
 }

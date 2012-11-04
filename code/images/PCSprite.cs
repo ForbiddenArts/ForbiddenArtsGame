@@ -15,10 +15,10 @@ namespace ForbiddenArtsGame.code.images
 	{
 		public PCSprite()
 		{
-			image = SheetHandler.getSheet("Knight");
-			srcRect = image.Bounds;
-			origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
-            layer = 1.0f;
+			//image = SheetHandler.getSheet("Knight");
+			//srcRect = image.Bounds;
+			//origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
+            //layer = 1.0f;
 		}
 	}
 }
