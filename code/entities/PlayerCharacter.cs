@@ -62,7 +62,6 @@ namespace ForbiddenArtsGame.code.entities
 			KeyboardState keyboard = Keyboard.GetState();
 
 			Settings.CameraLoc.X = loc.X - Settings.screenX / 2 + 100;
-
 			if (loc.Y == Settings.screenY - 200)
 				onGround = true;
 			else
@@ -131,6 +130,8 @@ namespace ForbiddenArtsGame.code.entities
 			//    //something to do with mobile melee enemies and the entities list
 			//    if(
 			//}
+
+			inHole = false;
 		}
 
 		protected override void SetCurrentAnimation(string name)
@@ -207,6 +208,11 @@ namespace ForbiddenArtsGame.code.entities
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 144, 0, 144, 153), new Rectangle(0, 0, 144, 153), Color.White);//background thing
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 142, 27, 109, 102), new Rectangle(144, 0, 109, 102), Color.White);
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 119, 41, 100, 110), new Rectangle(253, 0, 100, 110), Color.White);
+		}
+
+		public override void InHole()
+		{
+			inHole = true;
 		}
 	}
 }

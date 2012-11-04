@@ -107,7 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\entities\Hole.cs" />
     <Compile Include="code\entities\projectiles\spells\Fireball.cs" />
+    <Compile Include="code\images\HoleSprite.cs" />
     <Compile Include="code\images\MageAnimations.cs" />
     <Compile Include="code\images\MeleeEnemyAnimations.cs" />
     <Compile Include="code\images\ParallaxComponent.cs" />

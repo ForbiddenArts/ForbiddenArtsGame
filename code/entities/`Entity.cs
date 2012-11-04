@@ -33,6 +33,8 @@ namespace ForbiddenArtsGame.code.entities
 
         protected Sprite currentSprite;
         protected Vector2 loc;
+		public float LocX { get { return loc.X; } }
+		public float LocY { get { return loc.Y; } }
 		protected List<SpellEffect> effects;
 
 		public virtual Rectangle BoundingBox
@@ -95,5 +97,9 @@ namespace ForbiddenArtsGame.code.entities
 			set { currentSprite = value; }
 		}
 
+		public virtual void InHole()
+		{
+			return;
+		}
     }
 }

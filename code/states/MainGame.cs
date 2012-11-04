@@ -17,14 +17,20 @@ namespace ForbiddenArtsGame.code.states
 		List<Entity> entities;
 		Terrain terrain;
 
+		PlayerCharacter PC;
+		Hole hole;
+
 		public MainGame()
 		{
+			PC = new PlayerCharacter(new Vector2(100, 200));
+			hole = new Hole(new Vector2(6000, 660));
 			terrain = new Terrain();
 			entities = new List<Entity>();
 			entities.Add(terrain);
-			entities.Add(new PlayerCharacter(new Vector2(100, 200)));
+			entities.Add(PC);
 			entities.Add(new Enemy_Melee(new Vector2(1500, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(4000, 200)));
+			entities.Add(hole);
 			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(8650, 200)));
 		}
@@ -35,7 +41,7 @@ namespace ForbiddenArtsGame.code.states
 			{
 				if (child.Update(gameTime))
 				{
-					if (((PauseMenu)child) != null && ((PauseMenu)child).SelectedExit)
+					if (child is PauseMenu && ((PauseMenu)child).SelectedExit)
 					{
 						return true;
 					}
@@ -43,6 +49,10 @@ namespace ForbiddenArtsGame.code.states
 					{
 						child = null;
 					}
+				}
+				else
+				{
+					return false;
 				}
 			}
 
@@ -83,6 +93,12 @@ namespace ForbiddenArtsGame.code.states
 				entities.Remove(e);
 			}
 
+			if (PC.LocY > 800)
+			{
+				child = new Minigame();
+				entities.Remove(hole);
+			}
+
 			if (playerEnding())
 			{
 				//end game
@@ -93,11 +109,18 @@ namespace ForbiddenArtsGame.code.states
 
 		public override void Draw(GameTime gameTime)
 		{
+			if (child != null && !child.DrawParent())
+			{
+				child.Draw(gameTime);
+				return;
+			}
 			foreach (Entity e in entities)
 			{
 				e.Draw(gameTime);
 			}
 			terrain.DrawFront(gameTime);
+			if (child != null)
+				child.Draw(gameTime);
 		}
 
 		public bool playerEnding()

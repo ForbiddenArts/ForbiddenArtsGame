@@ -25,6 +25,8 @@ namespace ForbiddenArtsGame.code.entities
 		protected Vector2 velocity = Vector2.Zero;
 		protected float updateVelMult = 0.95f;
 
+		protected bool inHole = false;
+
 		public Mobile() : this(Vector2.Zero) { }
 		public Mobile(Vector2 loc) : base(loc) { }
 
@@ -66,12 +68,12 @@ namespace ForbiddenArtsGame.code.entities
 				else if (velocity.X < 0)
 					facing = Facing.Left;
 
-				if (loc.Y > Settings.screenY - 200)
+				if (loc.Y > Settings.screenY - 200 && !inHole)
 				{
 					loc.Y = Settings.screenY - 200;
 					velocity.Y = 0;
 				}
-				else if (loc.Y < Settings.screenY - 200)
+				else if (loc.Y < Settings.screenY - 200 || inHole)
 				{
 					velocity.Y += 0.8f;
 				}
@@ -95,6 +97,11 @@ namespace ForbiddenArtsGame.code.entities
 			if (this is Projectile || e is Projectile)
 				return;
 			if ((this is Character && ((Character)this).isDead) || e is Character && ((Character)e).isDead) return;
+			if (e is Hole)
+			{
+				this.InHole();
+				return;
+			}
 			if (isMobile)
 			{
 				switch (Collision(e.BoundingBox))
