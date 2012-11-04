@@ -17,6 +17,7 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 		protected int damage = 10;
 		protected int timetolive = 1;
 		protected int lifetime = 0;
+		protected bool collided = false;
 		public Projectile(Vector2 loc, Vector2 vel, Entity source)
 		{
 			this.loc = loc;
@@ -52,13 +53,16 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 					case CollisionDirection.left:
 						c.Move(new Vector2(5, 0));
 						c.Damage(damage);
+						collided = true;
 						break;
 					case CollisionDirection.right:
 						c.Move(new Vector2(-5, 0));
 						c.Damage(damage);
+						collided = true;
 						break;
 					default:
 						c.Damage(damage);
+						collided = true;
 						break;
 				}
 			}

@@ -18,6 +18,7 @@ namespace ForbiddenArtsGame.code
 		private static Thread loadThread;
 		public static ContentManager Content { get { return content; } }
 		public static Dictionary<string, Texture2D> sheets;
+		public static SoundEffect Music;
 
 		public static void Initialize(ContentManager _content)
 		{
@@ -94,12 +95,20 @@ namespace ForbiddenArtsGame.code
 			SheetHandler.LoadSheet("characters/Mage");
 			SheetHandler.LoadSheet("characters/Melee");
 			SheetHandler.LoadSheet("famg");
+
+
+			SheetHandler.Music = content.Load<SoundEffect>("FA1");
 		}
 
 		public static void QuitLoad()
 		{
 			if (loadThread.IsAlive)
 				loadThread.Abort();
+		}
+
+		public static SoundEffect GetMusic()
+		{
+			return Music;
 		}
 	}
 }

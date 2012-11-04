@@ -107,8 +107,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="code\entities\Enemy_Ranged.cs" />
     <Compile Include="code\entities\Hole.cs" />
+    <Compile Include="code\entities\projectiles\RangedProjectile.cs" />
     <Compile Include="code\entities\projectiles\spells\Fireball.cs" />
+    <Compile Include="code\images\Arrow.cs" />
+    <Compile Include="code\images\RangedEnemySprite.cs" />
     <Compile Include="code\images\HoleSprite.cs" />
     <Compile Include="code\images\MageAnimations.cs" />
     <Compile Include="code\images\MeleeEnemyAnimations.cs" />
