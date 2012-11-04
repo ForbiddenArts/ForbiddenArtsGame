@@ -99,6 +99,7 @@ namespace ForbiddenArtsGame.code
 						effects = SpriteEffects.FlipHorizontally;
 						break;
 				}
+                if(image != null)
 				Settings.spriteBatch.Draw(image, relativeloc, srcRect, overlay, rotation, origin, 1.0f, effects, layer);
 			}
         }

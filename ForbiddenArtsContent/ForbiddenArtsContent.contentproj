@@ -178,33 +178,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menu\spriteSheetpart1.png">
-      <Name>spriteSheetpart1</Name>
+    <Compile Include="menu\menuSheet1_0.png">
+      <Name>menuSheet1_0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="menu\spriteSheetpart2.png">
-      <Name>spriteSheetpart2</Name>
+    <Compile Include="menu\menuSheet1_1.png">
+      <Name>menuSheet1_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="menu\spriteSheetpart3.png">
-      <Name>spriteSheetpart3</Name>
+    <Compile Include="menu\menuSheet1_2.png">
+      <Name>menuSheet1_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="menu\spriteSheetpart4.png">
-      <Name>spriteSheetpart4</Name>
+    <Compile Include="menu\menuSheet1_3.png">
+      <Name>menuSheet1_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="menu\spriteSheetpart5.png">
-      <Name>spriteSheetpart5</Name>
+    <Compile Include="menu\menuSheet1_4.png">
+      <Name>menuSheet1_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="menu\spriteSheetpart6.png">
-      <Name>spriteSheetpart6</Name>
+    <Compile Include="menu\menuSheet1_5.png">
+      <Name>menuSheet1_5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
