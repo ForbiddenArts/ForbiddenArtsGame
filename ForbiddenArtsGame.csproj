@@ -125,6 +125,7 @@
     <Compile Include="code\images\Spell.cs" />
     <Compile Include="code\images\TempProj.cs" />
     <Compile Include="code\images\TerrainSprite.cs" />
+    <Compile Include="code\images\`ComplexAnimation.cs" />
     <Compile Include="code\SheetHandler.cs" />
     <Compile Include="code\images\`Animation.cs" />
     <Compile Include="code\Settings.cs" />

@@ -26,12 +26,16 @@ namespace ForbiddenArtsGame.code.states
 		Texture2D wholeBackground;
 		Sprite menuBackground;
 		Point oldMouseLoc;
+        bool animationDone;
+
+        ComplexAnimation menuStart;
 
         public StartMenu()
             : base()
         {
             drawParent = false;
 			currentOption = Options.NewGame;
+            animationDone = false;
 
 			optionRects = new Rectangle[(int)Options.Exit + 1] {
 				new Rectangle(100,100,100,30),//new game
@@ -50,6 +54,10 @@ namespace ForbiddenArtsGame.code.states
 			wholeBackground = SheetHandler.getSheet("background");
 			menuBackground = new MenuBackground();
 			oldMouseLoc = Point.Zero;
+
+            Texture2D[] menuAnimSheets = new Texture2D[6];
+            for (int i = 0; i < 6; i++) menuAnimSheets[i] = SheetHandler.getSheet("menu/menuSheet1_"+i);
+            menuStart = new ComplexAnimation(menuAnimSheets, 3, 5, 1280, 720, 0, 0, 0, 0, SheetDirection.LEFT_TO_RIGHT, false);
         }
 
         public override void Draw(GameTime gameTime)
@@ -60,13 +68,16 @@ namespace ForbiddenArtsGame.code.states
                 return;
             }
 
-			Settings.spriteBatch.Draw(wholeBackground, new Rectangle(0, 0, Settings.screenX, Settings.screenY), Color.White);
-			menuBackground.Draw(gameTime, new Vector2(Settings.screenX / 2, Settings.screenY / 2));
-			Settings.spriteBatch.Draw(optionTexts[(int)Options.NewGame, currentOption == Options.NewGame ? 1 : 0], optionRects[(int)Options.NewGame], Color.White);
-			Settings.spriteBatch.Draw(optionTexts[(int)Options.LoadGame, currentOption == Options.LoadGame ? 1 : 0], optionRects[(int)Options.LoadGame], Color.White);
-			Settings.spriteBatch.Draw(optionTexts[(int)Options.Options, currentOption == Options.Options ? 1 : 0], optionRects[(int)Options.Options], Color.White);
-			Settings.spriteBatch.Draw(optionTexts[(int)Options.Exit, currentOption == Options.Exit ? 1 : 0], optionRects[(int)Options.Exit], Color.White);
-
+			//Settings.spriteBatch.Draw(wholeBackground, new Rectangle(0, 0, Settings.screenX, Settings.screenY), Color.White);
+			//menuBackground.Draw(gameTime, new Vector2(Settings.screenX / 2, Settings.screenY / 2));
+            /*if (animationDone) {
+                Settings.spriteBatch.Draw(optionTexts[(int)Options.NewGame, currentOption == Options.NewGame ? 1 : 0], optionRects[(int)Options.NewGame], Color.White);
+                Settings.spriteBatch.Draw(optionTexts[(int)Options.LoadGame, currentOption == Options.LoadGame ? 1 : 0], optionRects[(int)Options.LoadGame], Color.White);
+                Settings.spriteBatch.Draw(optionTexts[(int)Options.Options, currentOption == Options.Options ? 1 : 0], optionRects[(int)Options.Options], Color.White);
+                Settings.spriteBatch.Draw(optionTexts[(int)Options.Exit, currentOption == Options.Exit ? 1 : 0], optionRects[(int)Options.Exit], Color.White);
+            }
+            else*/
+            menuStart.Draw(gameTime, new Vector2(-300, 0));
             if (child != null)
                 child.Draw(gameTime);
         }
