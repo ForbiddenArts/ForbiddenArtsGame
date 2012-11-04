@@ -45,18 +45,21 @@ namespace ForbiddenArtsGame.code.entities
 			Vector2 relativePlayerPosition = Settings.GetPositionFromCamera(loc);
 			if (hasSeen)
 			{
-				if (relativePlayerPosition.X > -270 && relativePlayerPosition.X < 200)
+				if (relativePlayerPosition.X > -500 && relativePlayerPosition.X < 300)
 				{
 					if (velocity.Length() > 0)
 					{
 						Vector2 movement = velocity;
 						movement.Normalize();
+						movement = movement * -1;
 						Move(movement);
+						if ((velocity.X > 0 && movement.X > 0) || (velocity.X < 0 && movement.X < 0))
+							velocity = Vector2.Zero;
 					}
 					else
 						this.Attack(gameTime);
 				}
-				else if (relativePlayerPosition.X >= 200)
+				else if (relativePlayerPosition.X >= 300)
 				{
 					this.Move(new Vector2(-0.5f, 0));
 				}

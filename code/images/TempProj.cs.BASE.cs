@@ -16,12 +16,9 @@ namespace ForbiddenArtsGame.code.images
     {
         public TempProj()
         {
-            image = SheetHandler.getSheet("transparent");
+            image = SheetHandler.getSheet("Knight");
             srcRect = image.Bounds;
             origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
-            //image = SheetHandler.getSheet("Knight");
-            //srcRect = image.Bounds;
-            //origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
         }
     }
 }

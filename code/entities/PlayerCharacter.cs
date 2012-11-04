@@ -78,21 +78,22 @@ namespace ForbiddenArtsGame.code.entities
 				{
                     this.Move(new Vector2(0.7f, 0));
 				}
-				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
+				this.Move(new Vector2(0.8f * GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, 0));
+				if ((keyboard.IsKeyDown(Settings.keyJump) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed) && onGround)
 				{
 					this.Move(new Vector2(0, -30));
 					SetCurrentAnimation("jump");
 				}
-				if (keyboard.IsKeyDown(Settings.keyMeleeAttack))
+				if (keyboard.IsKeyDown(Settings.keyMeleeAttack) || GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
 				{
 					this.Attack(gameTime);
 				}
-				if (keyboard.IsKeyDown(Settings.keyCastSpell1))
+				if (keyboard.IsKeyDown(Settings.keyCastSpell1) || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
 				{
 					if(CanCast(gameTime))
 						this.Cast(0);
 				}
-				if (keyboard.IsKeyDown(Settings.keyCastSpell2))
+				if (keyboard.IsKeyDown(Settings.keyCastSpell2) || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
 				{
 					if(CanCast(gameTime))
 						this.Cast(1);
@@ -203,7 +204,7 @@ namespace ForbiddenArtsGame.code.entities
 			base.Draw(gameTime);
 
 			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 0, 145, 156), new Rectangle(0, 0, 145, 156), Color.White);//background thing
-			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 27, 145, 126 * (health / 100)), new Rectangle(145, 27, 145, 126 * (health / 100)), Color.White);
+			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 27 + (126 - (int)(126 * ((float)health / 100))), 145, (int)(126 * ((float)health / 100))), new Rectangle(145, 27 + (126 - (int)(126 * ((float)health / 100))), 145, (int)(126 * ((float)health / 100))), Color.White);
 
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 144, 0, 144, 153), new Rectangle(0, 0, 144, 153), Color.White);//background thing
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 142, 27, 109, 102), new Rectangle(144, 0, 109, 102), Color.White);

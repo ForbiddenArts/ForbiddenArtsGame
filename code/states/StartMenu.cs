@@ -23,6 +23,7 @@ namespace ForbiddenArtsGame.code.states
 		Texture2D[,] optionTexts;
 		Options currentOption;
 		Point oldMouseLoc;
+		bool movedController = false;
 
 		enum MenuState { Closed, Animating, Open };
 		MenuState menuState = MenuState.Closed;
@@ -175,13 +176,15 @@ namespace ForbiddenArtsGame.code.states
         {
             if (child != null)
             {
-                if (child.Update(gameTime))
-                    child = null;
+				if (child.Update(gameTime))
+					child = null;
+				else
+					return false;
             }
 
 			if (menuState == MenuState.Closed)
 			{
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Mouse.GetState().LeftButton == ButtonState.Pressed)
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Mouse.GetState().LeftButton == ButtonState.Pressed || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
 				{
 					menuState = MenuState.Animating;
 				}
@@ -193,8 +196,9 @@ namespace ForbiddenArtsGame.code.states
 			else
 			{
 				//check for movement between options by mouse or up/down
-				if (Keyboard.GetState().IsKeyDown(Keys.Up))
+				if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0.5 && !movedController)
 				{
+					movedController = true;
 					if (currentOption != Options.NewGame)
 					{
 						currentOption--;
@@ -209,8 +213,9 @@ namespace ForbiddenArtsGame.code.states
 						}
 					}
 				}
-				if (Keyboard.GetState().IsKeyDown(Keys.Down))
+				if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < -0.5 && !movedController)
 				{
+					movedController = true;
 					if (currentOption != Options.Exit)
 						currentOption++;
 					//disabled options
@@ -223,6 +228,8 @@ namespace ForbiddenArtsGame.code.states
 						currentOption++;
 					}
 				}
+				if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > -0.5 && GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0.5)
+					movedController = false;
 				Point newMouseLoc = new Point(Mouse.GetState().X, Mouse.GetState().Y);
 
 				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
@@ -264,7 +271,7 @@ namespace ForbiddenArtsGame.code.states
 				}
 
 				//check for option activation by enter or lmb
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
 				{
 					switch (currentOption)
 					{
