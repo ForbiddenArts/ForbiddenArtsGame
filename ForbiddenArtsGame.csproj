@@ -120,7 +120,6 @@
     <Compile Include="code\entities\PlayerCharacter.cs" />
     <Compile Include="code\entities\`Entity.cs" />
     <Compile Include="code\images\MeleeEnemySprite.cs" />
-    <Compile Include="code\images\MenuBackground.cs" />
     <Compile Include="code\images\PCSprite.cs" />
     <Compile Include="code\images\Spell.cs" />
     <Compile Include="code\images\TempProj.cs" />
