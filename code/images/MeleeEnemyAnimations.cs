@@ -16,10 +16,10 @@ namespace ForbiddenArtsGame.code.images
 		public MeleeEnemyWalk()
 			: base()
 		{
-			firstFrameRect = new Rectangle(0, 0, 281, 250);
-			srcRect = new Rectangle(0, 0, 281, 250);
-			origin = new Vector2(140, 115);
-			frameCount = 1;
+			firstFrameRect = new Rectangle(0, 0, 281, 270);
+			srcRect = new Rectangle(0, 0, 281, 270);
+			origin = new Vector2(140, 135);
+			frameCount = 11;
 			image = SheetHandler.getSheet("characters/Melee");
 		}
 	}
@@ -29,10 +29,10 @@ namespace ForbiddenArtsGame.code.images
 		public MeleeEnemyAttack()
 			: base()
 		{
-			firstFrameRect = new Rectangle(0, 250, 281, 250);
-			srcRect = new Rectangle(0, 250, 281, 250);
-			origin = new Vector2(140, 115);
-			frameCount = 1;
+			firstFrameRect = new Rectangle(0, 540, 281, 270);
+			srcRect = new Rectangle(0, 540, 281, 270);
+			origin = new Vector2(140, 135);
+			frameCount = 9;
 			image = SheetHandler.getSheet("characters/Melee");
 		}
 	}
@@ -42,10 +42,10 @@ namespace ForbiddenArtsGame.code.images
 		public MeleeEnemyIdle()
 			: base()
 		{
-			firstFrameRect = new Rectangle(0, 500, 281, 250);
-			srcRect = new Rectangle(0, 500, 281, 250);
-			origin = new Vector2(140, 115);
-			frameCount = 1;
+			firstFrameRect = new Rectangle(0, 270, 281, 270);
+			srcRect = new Rectangle(0, 270, 281, 270);
+			origin = new Vector2(140, 135);
+			frameCount = 8;
 			image = SheetHandler.getSheet("characters/Melee");
 		}
 	}
@@ -55,9 +55,9 @@ namespace ForbiddenArtsGame.code.images
 		public MeleeEnemyDead()
 			: base()
 		{
-			firstFrameRect = new Rectangle(0, 750, 281, 250);
-			srcRect = new Rectangle(0, 750, 281, 250);
-			origin = new Vector2(140, 115);
+			firstFrameRect = new Rectangle(0, 810, 281, 270);
+			srcRect = new Rectangle(0, 810, 281, 270);
+			origin = new Vector2(140, 135);
 			frameCount = 1;
 			image = SheetHandler.getSheet("characters/Melee");
 		}

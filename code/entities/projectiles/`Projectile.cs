@@ -51,12 +51,10 @@ namespace ForbiddenArtsGame.code.entities.projectiles
 				switch(Collision(e.BoundingBox))
 				{
 					case CollisionDirection.left:
-						c.Move(new Vector2(5, 0));
 						c.Damage(damage);
 						collided = true;
 						break;
 					case CollisionDirection.right:
-						c.Move(new Vector2(-5, 0));
 						c.Damage(damage);
 						collided = true;
 						break;
