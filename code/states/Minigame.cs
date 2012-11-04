@@ -22,6 +22,7 @@ namespace ForbiddenArtsGame.code.states
 		Rectangle WallSrc, BoxSrc, ManSrc, LadderSrc, GoalSrc, BoxInGoalSrc, ManInGoalSrc;
 
 		KeyboardState lastState;
+		TimeSpan untilNextControllerMove;
 
 		public Minigame()
 		{
@@ -36,6 +37,7 @@ namespace ForbiddenArtsGame.code.states
 			ManInGoalSrc = new Rectangle(40, 20, 20, 20);
 
 			lastState = Keyboard.GetState();
+			untilNextControllerMove = TimeSpan.Zero;
 		}
 
 		protected void LoadMap()
@@ -67,6 +69,12 @@ namespace ForbiddenArtsGame.code.states
 		public override bool Update(GameTime gameTime)
 		{
 			KeyboardState newKeyboard = Keyboard.GetState();
+			if (untilNextControllerMove != TimeSpan.Zero)
+			{
+				untilNextControllerMove -= gameTime.ElapsedGameTime;
+				if (untilNextControllerMove < TimeSpan.Zero)
+					untilNextControllerMove = TimeSpan.Zero;
+			}
 
 			bool won = true;
 			foreach (Point p in GoalPoints)
@@ -75,8 +83,9 @@ namespace ForbiddenArtsGame.code.states
 			}
 			if(won) return true;
 
-			if (newKeyboard.IsKeyDown(Keys.Up) && !lastState.IsKeyDown(Keys.Up))
+			if ((newKeyboard.IsKeyDown(Keys.Up) && !lastState.IsKeyDown(Keys.Up)) || (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0.5 && untilNextControllerMove == TimeSpan.Zero))
 			{
+				untilNextControllerMove = new TimeSpan(TimeSpan.TicksPerSecond / 4);
 				Point moveTo = new Point(playerLoc.X, playerLoc.Y - 1);
 				Point boxMoveTo = new Point(playerLoc.X, playerLoc.Y - 2);
 				switch (map[moveTo.X, moveTo.Y])
@@ -127,8 +136,9 @@ namespace ForbiddenArtsGame.code.states
 						break;
 				}
 			}
-			else if (newKeyboard.IsKeyDown(Keys.Down) && !lastState.IsKeyDown(Keys.Down))
+			else if (newKeyboard.IsKeyDown(Keys.Down) && !lastState.IsKeyDown(Keys.Down) || (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < -0.5 && untilNextControllerMove == TimeSpan.Zero))
 			{
+				untilNextControllerMove = new TimeSpan(TimeSpan.TicksPerSecond / 4);
 				Point moveTo = new Point(playerLoc.X, playerLoc.Y + 1);
 				Point boxMoveTo = new Point(playerLoc.X, playerLoc.Y + 2);
 				switch (map[moveTo.X, moveTo.Y])
@@ -187,8 +197,9 @@ namespace ForbiddenArtsGame.code.states
 						break;
 				}
 			}
-			else if (newKeyboard.IsKeyDown(Keys.Left) && !lastState.IsKeyDown(Keys.Left))
+			else if (newKeyboard.IsKeyDown(Keys.Left) && !lastState.IsKeyDown(Keys.Left) || (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < -0.5 && untilNextControllerMove == TimeSpan.Zero))
 			{
+				untilNextControllerMove = new TimeSpan(TimeSpan.TicksPerSecond / 4);
 				Point moveTo = new Point(playerLoc.X - 1, playerLoc.Y);
 				Point boxMoveTo = new Point(playerLoc.X - 2, playerLoc.Y);
 				switch (map[moveTo.X, moveTo.Y])
@@ -247,8 +258,9 @@ namespace ForbiddenArtsGame.code.states
 						break;
 				}
 			}
-			else if (newKeyboard.IsKeyDown(Keys.Right) && !lastState.IsKeyDown(Keys.Right))
+			else if (newKeyboard.IsKeyDown(Keys.Right) && !lastState.IsKeyDown(Keys.Right) || (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0.5 && untilNextControllerMove == TimeSpan.Zero))
 			{
+				untilNextControllerMove = new TimeSpan(TimeSpan.TicksPerSecond / 4);
 				Point moveTo = new Point(playerLoc.X + 1, playerLoc.Y);
 				Point boxMoveTo = new Point(playerLoc.X + 2, playerLoc.Y);
 				switch (map[moveTo.X, moveTo.Y])
