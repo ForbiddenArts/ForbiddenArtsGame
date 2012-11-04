@@ -203,7 +203,7 @@ namespace ForbiddenArtsGame.code.entities
 			base.Draw(gameTime);
 
 			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 0, 145, 156), new Rectangle(0, 0, 145, 156), Color.White);//background thing
-			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 27, 145, 126 * (health / 100)), new Rectangle(145, 27, 145, 126 * (health / 100)), Color.White);
+			Settings.spriteBatch.Draw(HealthSheet, new Rectangle(0, 27 + (126 - (int)(126 * ((float)health / 100))), 145, (int)(126 * ((float)health / 100))), new Rectangle(145, 27 + (126 - (int)(126 * ((float)health / 100))), 145, (int)(126 * ((float)health / 100))), Color.White);
 
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 144, 0, 144, 153), new Rectangle(0, 0, 144, 153), Color.White);//background thing
 			Settings.spriteBatch.Draw(SpellSheet, new Rectangle(Settings.screenX - 142, 27, 109, 102), new Rectangle(144, 0, 109, 102), Color.White);
