@@ -16,7 +16,6 @@ namespace ForbiddenArtsGame.code.states
 	{
 		List<Entity> entities;
 		Terrain terrain;
-        StartMenu startMenu;
 
 		public MainGame()
 		{
@@ -28,7 +27,6 @@ namespace ForbiddenArtsGame.code.states
 			entities.Add(new Enemy_Melee(new Vector2(4000, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(8650, 200)));
-            startMenu = new StartMenu();
 		}
 
 		public override bool Update(GameTime gameTime)
@@ -100,7 +98,6 @@ namespace ForbiddenArtsGame.code.states
 				e.Draw(gameTime);
 			}
 			terrain.DrawFront(gameTime);
-            startMenu.Draw(gameTime);
 		}
 
 		public bool playerEnding()
