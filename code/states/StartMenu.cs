@@ -20,7 +20,7 @@ namespace ForbiddenArtsGame.code.states
     {
 		enum Options { NewGame, LoadGame, Options, Exit };
 		Rectangle[] optionRects;
-		Texture2D[] activeOptionTexts;
+		Texture2D[,] optionTexts;
 		Options currentOption;
 		Point oldMouseLoc;
 
@@ -44,25 +44,16 @@ namespace ForbiddenArtsGame.code.states
 			currentOption = Options.NewGame;
 
 			optionRects = new Rectangle[(int)Options.Exit + 1] {
-				new Rectangle(740,330,170,50),//new game
-				new Rectangle(740,380,170,70),//load game
-				new Rectangle(740,450,170,65),//options
-				new Rectangle(740,515,170,50)//exit
+				new Rectangle(741,332,160,49),//new game
+				new Rectangle(741,379,160,68),//load game
+				new Rectangle(741,444,160,76),//options
+				new Rectangle(741,517,160,43)//exit
 			};
-
-			/*
-			optionTexts = new Texture2D[(int)Options.Exit + 1, 2] {
-				{ SheetHandler.getSheet("menu/ng-"), SheetHandler.getSheet("menu/ng+") },//new game
-				{ SheetHandler.getSheet("menu/lg_"), null },//load game
-				{ SheetHandler.getSheet("menu/op_"), null },//options
-				{ SheetHandler.getSheet("menu/ex-"), SheetHandler.getSheet("menu/ex+") }//exit
-			};
-			*/
 
 			oldMouseLoc = Point.Zero;
 
 			menuSheets = new Texture2D[6] {
-				SheetHandler.getSheet("menu/spriteSheetpart1"),
+				SheetHandler.getSheet("menu/menuSheet1_0"),
 				null,
 				null,
 				null,
@@ -109,13 +100,20 @@ namespace ForbiddenArtsGame.code.states
 								sheetPosX = SheetPosX.Three;
 								sheetPosY = SheetPosY.Five;
 								menuState = MenuState.Open;
+
+								optionTexts = new Texture2D[(int)Options.Exit + 1, 2] {
+									{ SheetHandler.getSheet("menu/new-"), SheetHandler.getSheet("menu/new+") },//new game
+									{ SheetHandler.getSheet("menu/load-"), SheetHandler.getSheet("menu/load+") },//load game
+									{ SheetHandler.getSheet("menu/options-"), SheetHandler.getSheet("menu/options+") },//options
+									{ SheetHandler.getSheet("menu/quit-"), SheetHandler.getSheet("menu/quit+") }//exit
+								};
 							}
 							else
 							{
 								sheetNum++;
 								if (menuSheets[(int)sheetNum] == null)
 								{
-									menuSheets[(int)sheetNum] = SheetHandler.getSheet("menu/spriteSheetpart" + ((int)sheetNum + 1));
+									menuSheets[(int)sheetNum] = SheetHandler.getSheet("menu/menuSheet1_" + (int)sheetNum);
 								}
 							}
 						}
@@ -134,6 +132,42 @@ namespace ForbiddenArtsGame.code.states
 			Texture2D currentSheet = menuSheets[(int)sheetNum];
 			Rectangle srcRect = new Rectangle(1280 * (int)sheetPosX, 720 * (int)sheetPosY, 1280, 720);
 			Settings.spriteBatch.Draw(currentSheet, Vector2.Zero, srcRect, Color.White);
+
+			if (menuState == MenuState.Open)
+			{
+				if(currentOption == Options.NewGame)
+				{
+					Settings.spriteBatch.Draw(optionTexts[0, 1], optionRects[0], Color.White);
+				}
+				else
+				{
+					Settings.spriteBatch.Draw(optionTexts[0, 0], optionRects[0], Color.White);
+				}
+				if (currentOption == Options.LoadGame)
+				{
+					Settings.spriteBatch.Draw(optionTexts[1, 1], optionRects[1], Color.White);
+				}
+				else
+				{
+					Settings.spriteBatch.Draw(optionTexts[1, 0], optionRects[1], Color.White);
+				}
+				if (currentOption == Options.Options)
+				{
+					Settings.spriteBatch.Draw(optionTexts[2, 1], optionRects[2], Color.White);
+				}
+				else
+				{
+					Settings.spriteBatch.Draw(optionTexts[2, 0], optionRects[2], Color.White);
+				}
+				if (currentOption == Options.Exit)
+				{
+					Settings.spriteBatch.Draw(optionTexts[3, 1], optionRects[3], Color.White);
+				}
+				else
+				{
+					Settings.spriteBatch.Draw(optionTexts[3, 0], optionRects[3], Color.White);
+				}
+			}
         }
 
 		//TODO: Mouse detection
@@ -198,12 +232,29 @@ namespace ForbiddenArtsGame.code.states
 						if (r.Contains(newMouseLoc))
 						{
 							currentOption = (Options)iii;
+							if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+							{
+								switch (currentOption)
+								{
+									case Options.NewGame:
+										doNewGame();
+										break;
+									case Options.LoadGame:
+										doLoadGame();
+										break;
+									case Options.Options:
+										doOptions();
+										break;
+									case Options.Exit:
+										return true;
+								}
+							}
 						}
 					}
 				}
 
 				//check for option activation by enter or lmb
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Mouse.GetState().LeftButton == ButtonState.Pressed)
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
 				{
 					switch (currentOption)
 					{

@@ -70,12 +70,20 @@ namespace ForbiddenArtsGame.code
 		//run in a separate thread to the one everything else is, menu stuff at the start because it is needed first
 		public static void LoadAll()
 		{
-			SheetHandler.LoadSheet("menu/spriteSheetpart1");
-			SheetHandler.LoadSheet("menu/spriteSheetpart2");
-			SheetHandler.LoadSheet("menu/spriteSheetpart3");
-			SheetHandler.LoadSheet("menu/spriteSheetpart4");
-			SheetHandler.LoadSheet("menu/spriteSheetpart5");
-			SheetHandler.LoadSheet("menu/spriteSheetpart6");
+			SheetHandler.LoadSheet("menu/menuSheet1_0");
+			SheetHandler.LoadSheet("menu/menuSheet1_1");
+			SheetHandler.LoadSheet("menu/menuSheet1_2");
+			SheetHandler.LoadSheet("menu/menuSheet1_3");
+			SheetHandler.LoadSheet("menu/menuSheet1_4");
+			SheetHandler.LoadSheet("menu/menuSheet1_5");
+			SheetHandler.getSheet("menu/new-");
+			SheetHandler.getSheet("menu/new+");
+			SheetHandler.getSheet("menu/load-");
+			SheetHandler.getSheet("menu/load+");
+			SheetHandler.getSheet("menu/options-");
+			SheetHandler.getSheet("menu/options+");
+			SheetHandler.getSheet("menu/quit-");
+			SheetHandler.getSheet("menu/quit+");
 			SheetHandler.LoadSheet("sceneL0");
 			SheetHandler.LoadSheet("sceneL1");
 			SheetHandler.LoadSheet("sceneL2");
