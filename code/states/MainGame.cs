@@ -19,8 +19,6 @@ namespace ForbiddenArtsGame.code.states
 
 		PlayerCharacter PC;
 		Hole hole;
-		SoundEffect music;
-		SoundEffectInstance musicInstance;
 
 		public MainGame()
 		{
@@ -36,11 +34,6 @@ namespace ForbiddenArtsGame.code.states
 			entities.Add(hole);
 			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
 			entities.Add(new Enemy_Melee(new Vector2(8650, 200)));
-			music = SheetHandler.GetMusic();
-			musicInstance = music.CreateInstance();
-			musicInstance.Volume = 0.5f;
-			musicInstance.IsLooped = true;
-			musicInstance.Play();
 		}
 
 		public override bool Update(GameTime gameTime)

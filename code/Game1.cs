@@ -34,9 +34,9 @@ namespace ForbiddenArtsGame.code
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            Settings.Initialize(ref graphics);
+			// TODO: Add your initialization logic here
 			SheetHandler.Initialize(Content);
+            Settings.Initialize(ref graphics);
             baseState = new StartMenu();
 
             base.Initialize();
@@ -75,10 +75,6 @@ namespace ForbiddenArtsGame.code
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-
             // TODO: Add your update logic here
 			if (baseState.Update(gameTime))
 			{

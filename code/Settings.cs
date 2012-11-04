@@ -47,9 +47,19 @@ namespace ForbiddenArtsGame.code
 						case "spell2":
 							keyCastSpell2 = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
 							break;
+						case "music":
+							MusicVolume = float.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "effects":
+							EffectsVolume = float.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
 					}
 				}
 			}
+			Song music = SheetHandler.GetMusic();
+			MediaPlayer.Play(music);
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = MusicVolume;
         }
 
 		public static void SaveKeybinds()
@@ -61,13 +71,15 @@ namespace ForbiddenArtsGame.code
 				"jump " + (int)keyJump,
 				"melee " + (int)keyMeleeAttack,
 				"spell1 " + (int)keyCastSpell1,
-				"spell2 " + (int)keyCastSpell2
+				"spell2 " + (int)keyCastSpell2,
+				"music " + MusicVolume,
+				"effects " + EffectsVolume
 			};
 			File.WriteAllLines(iniPath, text);
 		}
 
         private static GraphicsDeviceManager graphics;
-
+		public static bool Fullscreen { get { return graphics.IsFullScreen; } set { graphics.IsFullScreen = value; graphics.ApplyChanges(); } }
 		public static Vector2 CameraLoc;
 		public static Vector2 GetPositionFromCamera(Vector2 loc)
 		{
@@ -94,5 +106,9 @@ namespace ForbiddenArtsGame.code
 		public static Buttons buttonInteract = Buttons.B;
 		public static Buttons buttonCastSpell1 = Buttons.X;
 		public static Buttons buttonCastSpell2 = Buttons.Y;
+
+		public static float MusicVolume { get { return musicVolume; } set { musicVolume = value; MediaPlayer.Volume = value; } }
+		private static float musicVolume = 1.0f;
+		public static float EffectsVolume = 1.0f;
     }
 }

@@ -203,10 +203,6 @@ namespace ForbiddenArtsGame.code.states
 					{
 						currentOption--;
 						//disabled options, backwards due to traversing options in reverse
-						if (currentOption == Options.Options)
-						{
-							currentOption--;
-						}
 						if (currentOption == Options.LoadGame)
 						{
 							currentOption--;
@@ -220,10 +216,6 @@ namespace ForbiddenArtsGame.code.states
 						currentOption++;
 					//disabled options
 					if (currentOption == Options.LoadGame)
-					{
-						currentOption++;
-					}
-					if (currentOption == Options.Options)
 					{
 						currentOption++;
 					}
@@ -305,7 +297,7 @@ namespace ForbiddenArtsGame.code.states
 
 		protected void doOptions()
 		{
-			//child = new MenuOptions();
+			child = new MenuOptions();
 		}
     }
 }

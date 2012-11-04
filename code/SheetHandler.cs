@@ -18,7 +18,7 @@ namespace ForbiddenArtsGame.code
 		private static Thread loadThread;
 		public static ContentManager Content { get { return content; } }
 		public static Dictionary<string, Texture2D> sheets;
-		public static SoundEffect Music;
+		public static Song Music;
 
 		public static void Initialize(ContentManager _content)
 		{
@@ -77,14 +77,15 @@ namespace ForbiddenArtsGame.code
 			SheetHandler.LoadSheet("menu/menuSheet1_3");
 			SheetHandler.LoadSheet("menu/menuSheet1_4");
 			SheetHandler.LoadSheet("menu/menuSheet1_5");
-			SheetHandler.getSheet("menu/new-");
-			SheetHandler.getSheet("menu/new+");
-			SheetHandler.getSheet("menu/load-");
-			SheetHandler.getSheet("menu/load+");
-			SheetHandler.getSheet("menu/options-");
-			SheetHandler.getSheet("menu/options+");
-			SheetHandler.getSheet("menu/quit-");
-			SheetHandler.getSheet("menu/quit+");
+			SheetHandler.LoadSheet("menu/new-");
+			SheetHandler.LoadSheet("menu/new+");
+			SheetHandler.LoadSheet("menu/load-");
+			SheetHandler.LoadSheet("menu/load+");
+			SheetHandler.LoadSheet("menu/options-");
+			SheetHandler.LoadSheet("menu/options+");
+			SheetHandler.LoadSheet("menu/quit-");
+			SheetHandler.LoadSheet("menu/quit+");
+			SheetHandler.LoadSheet("menu/options/main");
 			SheetHandler.LoadSheet("sceneL0");
 			SheetHandler.LoadSheet("sceneL1");
 			SheetHandler.LoadSheet("sceneL2");
@@ -95,9 +96,6 @@ namespace ForbiddenArtsGame.code
 			SheetHandler.LoadSheet("characters/Mage");
 			SheetHandler.LoadSheet("characters/Melee");
 			SheetHandler.LoadSheet("famg");
-
-
-			SheetHandler.Music = content.Load<SoundEffect>("FA1");
 		}
 
 		public static void QuitLoad()
@@ -106,9 +104,16 @@ namespace ForbiddenArtsGame.code
 				loadThread.Abort();
 		}
 
-		public static SoundEffect GetMusic()
+		public static Song GetMusic()
 		{
+			if(Music == null)
+				Music = content.Load<Song>("FA1");
 			return Music;
+		}
+
+		public static SpriteFont getSpriteFont()
+		{
+			return Content.Load<SpriteFont>("DefaultFont");
 		}
 	}
 }
