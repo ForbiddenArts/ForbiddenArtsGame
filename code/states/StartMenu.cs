@@ -34,6 +34,8 @@ namespace ForbiddenArtsGame.code.states
 		enum SheetPosY { One = 0, Two, Three, Four, Five };
 		SheetPosY sheetPosY = SheetPosY.One;
 
+		TimeSpan betweenMenuFrames;
+		TimeSpan sinceLastFrame;
 
         public StartMenu()
             : base()
@@ -67,6 +69,9 @@ namespace ForbiddenArtsGame.code.states
 				null,
 				null
 			};
+
+			betweenMenuFrames = new TimeSpan(TimeSpan.TicksPerSecond / 20);
+			sinceLastFrame = TimeSpan.Zero;
         }
 
         public override void Draw(GameTime gameTime)
@@ -87,38 +92,42 @@ namespace ForbiddenArtsGame.code.states
             }
             else*/
            // menuStart.Draw(gameTime, new Vector2(-300, 0));
-
-			if (menuState == MenuState.Animating)
+			sinceLastFrame += gameTime.ElapsedGameTime;
+			if (sinceLastFrame > betweenMenuFrames)
 			{
-				if (sheetPosX == SheetPosX.Three)
+				sinceLastFrame -= betweenMenuFrames;
+				if (menuState == MenuState.Animating)
 				{
-					sheetPosX = SheetPosX.One;
-					if (sheetPosY == SheetPosY.Five)
+					if (sheetPosX == SheetPosX.Three)
 					{
-						sheetPosY = SheetPosY.One;
-						if (sheetNum == SheetNum.Six)
+						sheetPosX = SheetPosX.One;
+						if (sheetPosY == SheetPosY.Five)
 						{
-							sheetPosX = SheetPosX.Three;
-							sheetPosY = SheetPosY.Five;
-							menuState = MenuState.Open;
+							sheetPosY = SheetPosY.One;
+							if (sheetNum == SheetNum.Six)
+							{
+								sheetPosX = SheetPosX.Three;
+								sheetPosY = SheetPosY.Five;
+								menuState = MenuState.Open;
+							}
+							else
+							{
+								sheetNum++;
+								if (menuSheets[(int)sheetNum] == null)
+								{
+									menuSheets[(int)sheetNum] = SheetHandler.getSheet("menu/spriteSheetpart" + ((int)sheetNum + 1));
+								}
+							}
 						}
 						else
 						{
-							sheetNum++;
-							if (menuSheets[(int)sheetNum] == null)
-							{
-								menuSheets[(int)sheetNum] = SheetHandler.getSheet("menu/spriteSheetpart" + ((int)sheetNum + 1));
-							}
+							sheetPosY++;
 						}
 					}
 					else
 					{
-						sheetPosY++;
+						sheetPosX++;
 					}
-				}
-				else
-				{
-					sheetPosX++;
 				}
 			}
 
