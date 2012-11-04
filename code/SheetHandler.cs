@@ -57,7 +57,14 @@ namespace ForbiddenArtsGame.code
 
 		public static void LoadSheet(string name)
 		{
-			sheets.Add(name, Content.Load<Texture2D>(name));
+			try
+			{
+				sheets.Add(name, Content.Load<Texture2D>(name));
+			}
+			catch (ArgumentException ex)
+			{
+				return;
+			}
 		}
 
 		//run in a separate thread to the one everything else is, menu stuff at the start because it is needed first
