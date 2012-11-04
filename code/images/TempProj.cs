@@ -16,7 +16,7 @@ namespace ForbiddenArtsGame.code.images
     {
         public TempProj()
         {
-            image = SheetHandler.getSheet("Knight");
+            image = SheetHandler.getSheet("transparent");
             srcRect = image.Bounds;
             origin = new Vector2(srcRect.Center.X, srcRect.Center.Y);
         }
