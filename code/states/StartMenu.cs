@@ -44,10 +44,10 @@ namespace ForbiddenArtsGame.code.states
 			currentOption = Options.NewGame;
 
 			optionRects = new Rectangle[(int)Options.Exit + 1] {
-				new Rectangle(100,100,100,30),//new game
-				new Rectangle(100,200,100,30),//load game
-				new Rectangle(100,300,100,30),//options
-				new Rectangle(100,400,100,30)//exit
+				new Rectangle(740,330,170,50),//new game
+				new Rectangle(740,380,170,70),//load game
+				new Rectangle(740,450,170,65),//options
+				new Rectangle(740,515,170,50)//exit
 			};
 
 			/*
@@ -192,11 +192,18 @@ namespace ForbiddenArtsGame.code.states
 				Point newMouseLoc = new Point(Mouse.GetState().X, Mouse.GetState().Y);
 				if (newMouseLoc != oldMouseLoc)
 				{
-
+					for (int iii = 0; iii < optionRects.Length; iii++ )
+					{
+						Rectangle r = optionRects[iii];
+						if (r.Contains(newMouseLoc))
+						{
+							currentOption = (Options)iii;
+						}
+					}
 				}
 
 				//check for option activation by enter or lmb
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Mouse.GetState().LeftButton == ButtonState.Pressed)
 				{
 					switch (currentOption)
 					{

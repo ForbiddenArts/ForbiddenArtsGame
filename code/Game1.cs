@@ -46,6 +46,8 @@ namespace ForbiddenArtsGame.code
 			//graphics.IsFullScreen = true;
 
             graphics.ApplyChanges();
+
+			IsMouseVisible = true;
         }
 
         /// <summary>
