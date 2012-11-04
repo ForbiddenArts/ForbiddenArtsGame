@@ -38,6 +38,8 @@ namespace ForbiddenArtsGame.code.states
 		TimeSpan betweenMenuFrames;
 		TimeSpan sinceLastFrame;
 
+		bool needMouseRelease = false;
+
         public StartMenu()
             : base()
         {
@@ -177,7 +179,10 @@ namespace ForbiddenArtsGame.code.states
             if (child != null)
             {
 				if (child.Update(gameTime))
+				{
 					child = null;
+					needMouseRelease = true;
+				}
 				else
 					return false;
             }
@@ -226,29 +231,34 @@ namespace ForbiddenArtsGame.code.states
 
 				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
 				{
-					for (int iii = 0; iii < optionRects.Length; iii++)
+					if (!needMouseRelease)
 					{
-						Rectangle r = optionRects[iii];
-						if (r.Contains(newMouseLoc))
+						for (int iii = 0; iii < optionRects.Length; iii++)
 						{
-							currentOption = (Options)iii;
-							switch (currentOption)
+							Rectangle r = optionRects[iii];
+							if (r.Contains(newMouseLoc))
 							{
-								case Options.NewGame:
-									doNewGame();
-									break;
-								case Options.LoadGame:
-									doLoadGame();
-									break;
-								case Options.Options:
-									doOptions();
-									break;
-								case Options.Exit:
-									return true;
+								currentOption = (Options)iii;
+								switch (currentOption)
+								{
+									case Options.NewGame:
+										doNewGame();
+										break;
+									case Options.LoadGame:
+										doLoadGame();
+										break;
+									case Options.Options:
+										doOptions();
+										break;
+									case Options.Exit:
+										return true;
+								}
 							}
 						}
 					}
 				}
+				else
+					needMouseRelease = false;
 
 				if (newMouseLoc != oldMouseLoc)
 				{

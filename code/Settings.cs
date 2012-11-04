@@ -47,6 +47,9 @@ namespace ForbiddenArtsGame.code
 						case "spell2":
 							keyCastSpell2 = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
 							break;
+						case "inventory":
+							keyInventory = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
 						case "music":
 							MusicVolume = float.Parse(s.Substring(s.IndexOf(' ') + 1));
 							break;
@@ -72,6 +75,7 @@ namespace ForbiddenArtsGame.code
 				"melee " + (int)keyMeleeAttack,
 				"spell1 " + (int)keyCastSpell1,
 				"spell2 " + (int)keyCastSpell2,
+				"inventory " + (int)keyInventory,
 				"music " + MusicVolume,
 				"effects " + EffectsVolume
 			};
@@ -100,6 +104,7 @@ namespace ForbiddenArtsGame.code
 		public static Keys keyCastSpell1 = Keys.Z;
 		public static Keys keyCastSpell2 = Keys.X;
 		public static Keys keyMeleeAttack = Keys.C;
+		public static Keys keyInventory = Keys.V;
 		public enum PadInput { LeftThumbstick, RightThumbstick, DPad };
 		public static PadInput padMoveInput = PadInput.LeftThumbstick;
 		public static Buttons buttonJump = Buttons.A;

@@ -56,6 +56,9 @@ namespace ForbiddenArtsGame.code.states
 				}
 			}
 
+			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+				child = new MenuOptions(true);
+
 			//check collisions between everything
 			for (List<Entity>.Enumerator ee = entities.GetEnumerator(); ee.MoveNext(); )
 			{
