@@ -76,6 +76,9 @@ namespace ForbiddenArtsGame.code.states
 					untilNextControllerMove = TimeSpan.Zero;
 			}
 
+			if (Keyboard.GetState().IsKeyDown(Keys.R) || GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed)
+				LoadMap();
+
 			bool won = true;
 			foreach (Point p in GoalPoints)
 			{
