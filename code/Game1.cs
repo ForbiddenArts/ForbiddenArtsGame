@@ -89,6 +89,12 @@ namespace ForbiddenArtsGame.code
             base.Update(gameTime);
         }
 
+		new protected void Exit()
+		{
+			Settings.SaveKeybinds();
+			base.Exit();
+		}
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>

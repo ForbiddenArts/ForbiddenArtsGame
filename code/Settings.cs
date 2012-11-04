@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -19,7 +20,51 @@ namespace ForbiddenArtsGame.code
 			graphics.ApplyChanges();
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             CameraLoc = new Vector2(-screenX/2, 0);
+
+			string iniPath = @"settings.ini";
+			if (File.Exists(iniPath))
+			{
+				string[] lines = File.ReadAllLines(iniPath);
+				foreach (string s in lines)
+				{
+					switch (s.Substring(0, s.IndexOf(' ')))
+					{
+						case "left":
+							keyMoveLeft = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "right":
+							keyMoveRight = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "jump":
+							keyJump = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "melee":
+							keyMeleeAttack = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "spell1":
+							keyCastSpell1 = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+						case "spell2":
+							keyCastSpell2 = (Keys)int.Parse(s.Substring(s.IndexOf(' ') + 1));
+							break;
+					}
+				}
+			}
         }
+
+		public static void SaveKeybinds()
+		{
+			string iniPath = @"settings.ini";
+			string[] text = new string[]{
+				"left " + (int)keyMoveLeft,
+				"right " + (int)keyMoveRight,
+				"jump " + (int)keyJump,
+				"melee " + (int)keyMeleeAttack,
+				"spell1 " + (int)keyCastSpell1,
+				"spell2 " + (int)keyCastSpell2
+			};
+			File.WriteAllLines(iniPath, text);
+		}
 
         private static GraphicsDeviceManager graphics;
 
