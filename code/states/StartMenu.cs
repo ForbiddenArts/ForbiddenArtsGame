@@ -181,7 +181,7 @@ namespace ForbiddenArtsGame.code.states
 
 			if (menuState == MenuState.Closed)
 			{
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || Mouse.GetState().LeftButton == ButtonState.Pressed)
 				{
 					menuState = MenuState.Animating;
 				}
@@ -288,7 +288,7 @@ namespace ForbiddenArtsGame.code.states
 
 		protected void doOptions()
 		{
-			child = new MenuOptions();
+			//child = new MenuOptions();
 		}
     }
 }
