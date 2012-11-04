@@ -20,6 +20,10 @@ namespace ForbiddenArtsGame.code.states
 		PlayerCharacter PC;
 		Hole hole;
 
+		Texture2D InventoryScreen;
+		bool ShowingInventory = false;
+		bool NeedInventoryButtonLift = false;
+
 		public MainGame()
 		{
 			PC = new PlayerCharacter(new Vector2(100, 200));
@@ -33,6 +37,7 @@ namespace ForbiddenArtsGame.code.states
 			entities.Add(hole);
 			entities.Add(new Enemy_Melee(new Vector2(8500, 200)));
 			entities.Add(new Enemy_Ranged(new Vector2(8650, 200)));
+			InventoryScreen = SheetHandler.getSheet("bookContent");
 		}
 
 		public override bool Update(GameTime gameTime)
@@ -54,6 +59,18 @@ namespace ForbiddenArtsGame.code.states
 				{
 					return false;
 				}
+			}
+
+			if (Keyboard.GetState().IsKeyDown(Settings.keyInventory))
+			{
+				if (!NeedInventoryButtonLift)
+				{
+					ShowingInventory = !ShowingInventory;
+				}
+			}
+			else
+			{
+				NeedInventoryButtonLift = false;
 			}
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -125,6 +142,9 @@ namespace ForbiddenArtsGame.code.states
 			terrain.DrawFront(gameTime);
 			if (child != null)
 				child.Draw(gameTime);
+
+			if (ShowingInventory)
+				Settings.spriteBatch.Draw(InventoryScreen, new Vector2((Settings.screenX - InventoryScreen.Width) / 2, (Settings.screenY - InventoryScreen.Height) / 2), Color.White);
 		}
 
 		public bool playerEnding()

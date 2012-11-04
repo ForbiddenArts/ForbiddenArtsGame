@@ -31,6 +31,7 @@ namespace ForbiddenArtsGame.code.states
 		enum BindSelected { Left, Right, Jump, Interact, Melee, Spell1, Spell2, Inventory }
 		BindSelected selectedBind;
 		bool binding = false;
+		bool NeedMouseLift = true;
 		public MenuOptions(bool _drawParent)
 			: this()
 		{
@@ -118,8 +119,11 @@ namespace ForbiddenArtsGame.code.states
 			MouseLoc = new Point(Mouse.GetState().X, Mouse.GetState().Y);
 			if (Mainrect.Contains(MouseLoc) && Mouse.GetState().LeftButton == ButtonState.Pressed)
 			{
-				return true;
+				if(!NeedMouseLift)
+					return true;
 			}
+			else
+				NeedMouseLift = false;
 			if (FullScreenArea.Contains(MouseLoc))
 			{
 				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
@@ -175,14 +179,54 @@ namespace ForbiddenArtsGame.code.states
 			{
 				Settings.spriteBatch.Draw(KeybindTexts[iii, KeybindAreas[iii].Contains(MouseLoc) ? 1 : 0], KeybindAreas[iii], Color.White);
 			}
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMoveLeft, "f"), new Vector2(830, 173), KeybindAreas[0].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMoveRight, "f"), new Vector2(830, 198), KeybindAreas[1].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyJump, "f"), new Vector2(830, 223), KeybindAreas[2].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyInteract, "f"), new Vector2(830, 246), KeybindAreas[3].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMeleeAttack, "f"), new Vector2(830, 269), KeybindAreas[4].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyCastSpell1, "f"), new Vector2(830, 293), KeybindAreas[5].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyCastSpell2, "f"), new Vector2(830, 319), KeybindAreas[6].Contains(MouseLoc) ? Color.Violet : Color.Black);
-			Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyInventory, "f"), new Vector2(830, 343), KeybindAreas[7].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Left)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMoveLeft, "f"), new Vector2(830, 173), KeybindAreas[0].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Right)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMoveRight, "f"), new Vector2(830, 198), KeybindAreas[1].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Jump)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyJump, "f"), new Vector2(830, 223), KeybindAreas[2].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Interact)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyInteract, "f"), new Vector2(830, 246), KeybindAreas[3].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Melee)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyMeleeAttack, "f"), new Vector2(830, 269), KeybindAreas[4].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Spell1)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyCastSpell1, "f"), new Vector2(830, 293), KeybindAreas[5].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Spell2)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyCastSpell2, "f"), new Vector2(830, 319), KeybindAreas[6].Contains(MouseLoc) ? Color.Violet : Color.Black);
+			if (binding && selectedBind == BindSelected.Inventory)
+			{
+
+			}
+			else
+				Settings.spriteBatch.DrawString(font, Enum.Format(typeof(Keys), Settings.keyInventory, "f"), new Vector2(830, 343), KeybindAreas[7].Contains(MouseLoc) ? Color.Violet : Color.Black);
 			if (Mainrect.Contains(MouseLoc))
 				Settings.spriteBatch.Draw(Mainmenu, Mainrect, Color.White);
 		}
