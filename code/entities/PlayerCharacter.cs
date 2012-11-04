@@ -78,21 +78,22 @@ namespace ForbiddenArtsGame.code.entities
 				{
                     this.Move(new Vector2(0.7f, 0));
 				}
-				if (keyboard.IsKeyDown(Settings.keyJump) && onGround)
+				this.Move(new Vector2(0.8f * GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X, 0));
+				if ((keyboard.IsKeyDown(Settings.keyJump) || GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed) && onGround)
 				{
 					this.Move(new Vector2(0, -30));
 					SetCurrentAnimation("jump");
 				}
-				if (keyboard.IsKeyDown(Settings.keyMeleeAttack))
+				if (keyboard.IsKeyDown(Settings.keyMeleeAttack) || GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
 				{
 					this.Attack(gameTime);
 				}
-				if (keyboard.IsKeyDown(Settings.keyCastSpell1))
+				if (keyboard.IsKeyDown(Settings.keyCastSpell1) || GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
 				{
 					if(CanCast(gameTime))
 						this.Cast(0);
 				}
-				if (keyboard.IsKeyDown(Settings.keyCastSpell2))
+				if (keyboard.IsKeyDown(Settings.keyCastSpell2) || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
 				{
 					if(CanCast(gameTime))
 						this.Cast(1);

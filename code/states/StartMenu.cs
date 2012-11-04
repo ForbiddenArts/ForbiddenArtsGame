@@ -176,8 +176,10 @@ namespace ForbiddenArtsGame.code.states
         {
             if (child != null)
             {
-                if (child.Update(gameTime))
-                    child = null;
+				if (child.Update(gameTime))
+					child = null;
+				else
+					return false;
             }
 
 			if (menuState == MenuState.Closed)
