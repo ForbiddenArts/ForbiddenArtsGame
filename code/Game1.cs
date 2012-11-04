@@ -81,7 +81,10 @@ namespace ForbiddenArtsGame.code
 
             // TODO: Add your update logic here
 			if (baseState.Update(gameTime))
+			{
+				SheetHandler.QuitLoad();
 				this.Exit();
+			}
 
             base.Update(gameTime);
         }

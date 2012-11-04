@@ -7,3 +7,4 @@ ForbiddenArtsContent/obj
 # mstest test results
 TestResults
 /ForbiddenArtsGame.csproj.Debug.cachefile
+/ForbiddenArtsGame.csproj.Release.cachefile

@@ -135,6 +135,7 @@
     <Compile Include="code\states\MainGame.cs" />
     <Compile Include="code\states\MenuBindKeys.cs" />
     <Compile Include="code\states\MenuOptions.cs" />
+    <Compile Include="code\states\Minigame.cs" />
     <Compile Include="code\states\PauseMenu.cs" />
     <Compile Include="code\states\StartMenu.cs" />
     <Compile Include="code\states\`GameState.cs" />

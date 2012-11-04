@@ -93,12 +93,13 @@ namespace ForbiddenArtsGame.code
 			SheetHandler.LoadSheet("spelluisheet");
 			SheetHandler.LoadSheet("characters/Mage");
 			SheetHandler.LoadSheet("characters/Melee");
+			SheetHandler.LoadSheet("famg");
 		}
 
-		public static void FinishLoad()
+		public static void QuitLoad()
 		{
 			if (loadThread.IsAlive)
-				loadThread.Join();
+				loadThread.Abort();
 		}
 	}
 }

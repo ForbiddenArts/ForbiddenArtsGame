@@ -224,6 +224,33 @@ namespace ForbiddenArtsGame.code.states
 					}
 				}
 				Point newMouseLoc = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+
+				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+				{
+					for (int iii = 0; iii < optionRects.Length; iii++)
+					{
+						Rectangle r = optionRects[iii];
+						if (r.Contains(newMouseLoc))
+						{
+							currentOption = (Options)iii;
+							switch (currentOption)
+							{
+								case Options.NewGame:
+									doNewGame();
+									break;
+								case Options.LoadGame:
+									doLoadGame();
+									break;
+								case Options.Options:
+									doOptions();
+									break;
+								case Options.Exit:
+									return true;
+							}
+						}
+					}
+				}
+
 				if (newMouseLoc != oldMouseLoc)
 				{
 					for (int iii = 0; iii < optionRects.Length; iii++ )
@@ -232,23 +259,6 @@ namespace ForbiddenArtsGame.code.states
 						if (r.Contains(newMouseLoc))
 						{
 							currentOption = (Options)iii;
-							if(Mouse.GetState().LeftButton == ButtonState.Pressed)
-							{
-								switch (currentOption)
-								{
-									case Options.NewGame:
-										doNewGame();
-										break;
-									case Options.LoadGame:
-										doLoadGame();
-										break;
-									case Options.Options:
-										doOptions();
-										break;
-									case Options.Exit:
-										return true;
-								}
-							}
 						}
 					}
 				}
