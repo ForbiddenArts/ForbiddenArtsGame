@@ -45,6 +45,7 @@ namespace ForbiddenArtsGame.code.states
         {
             drawParent = false;
 			currentOption = Options.NewGame;
+			Settings.Fullscreen = true;
 
 			optionRects = new Rectangle[(int)Options.Exit + 1] {
 				new Rectangle(741,332,160,49),//new game
@@ -207,11 +208,11 @@ namespace ForbiddenArtsGame.code.states
 					if (currentOption != Options.NewGame)
 					{
 						currentOption--;
-						//disabled options, backwards due to traversing options in reverse
-						if (currentOption == Options.LoadGame)
-						{
-							currentOption--;
-						}
+						////disabled options, backwards due to traversing options in reverse
+						//if (currentOption == Options.LoadGame)
+						//{
+						//    currentOption--;
+						//}
 					}
 				}
 				if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < -0.5 && !movedController)
@@ -219,11 +220,11 @@ namespace ForbiddenArtsGame.code.states
 					movedController = true;
 					if (currentOption != Options.Exit)
 						currentOption++;
-					//disabled options
-					if (currentOption == Options.LoadGame)
-					{
-						currentOption++;
-					}
+					////disabled options
+					//if (currentOption == Options.LoadGame)
+					//{
+					//    currentOption++;
+					//}
 				}
 				if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > -0.5 && GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0.5)
 					movedController = false;

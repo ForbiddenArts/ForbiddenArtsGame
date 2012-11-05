@@ -23,6 +23,7 @@ namespace ForbiddenArtsGame.code.states
 		Texture2D InventoryScreen;
 		bool ShowingInventory = false;
 		bool NeedInventoryButtonLift = false;
+		bool returnMainMenu = false;
 
 		public MainGame()
 		{
@@ -61,6 +62,9 @@ namespace ForbiddenArtsGame.code.states
 				}
 			}
 
+			if (returnMainMenu)
+				return true;
+
 			if (Keyboard.GetState().IsKeyDown(Settings.keyInventory))
 			{
 				if (!NeedInventoryButtonLift)
@@ -74,7 +78,9 @@ namespace ForbiddenArtsGame.code.states
 			}
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+			{
 				child = new MenuOptions(true);
+			}
 
 			//check collisions between everything
 			for (List<Entity>.Enumerator ee = entities.GetEnumerator(); ee.MoveNext(); )
@@ -190,6 +196,11 @@ namespace ForbiddenArtsGame.code.states
 				}
 			}
 			return false;
+		}
+
+		public void SetReturnMainMenu()
+		{
+			returnMainMenu = !returnMainMenu;
 		}
 	}
 }

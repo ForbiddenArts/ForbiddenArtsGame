@@ -131,6 +131,7 @@ namespace ForbiddenArtsGame.code.states
 				NeedMouseLift = false;
             if (selected == 11 && Keyboard.GetState().IsKeyDown(Keys.Enter)) {
                 NeedMouseLift = false;
+				
                 return true;
             }
 			if (MusicVolRect.Contains(MouseLoc) || selected == 0)
