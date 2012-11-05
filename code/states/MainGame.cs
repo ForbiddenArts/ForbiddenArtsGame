@@ -41,29 +41,34 @@ namespace ForbiddenArtsGame.code.states
 			InventoryScreen = SheetHandler.getSheet("bookContent");
 		}
 
-		public override bool Update(GameTime gameTime)
+		public override StateReturn Update(GameTime gameTime)
 		{
 			if (child != null)
 			{
-				if (child.Update(gameTime))
+				StateReturn returnType = child.Update(gameTime);
+				if (returnType == StateReturn.True)
 				{
 					if (child is PauseMenu && ((PauseMenu)child).SelectedExit)
 					{
-						return true;
+						return StateReturn.True;
 					}
 					else
 					{
 						child = null;
 					}
 				}
+				else if (returnType == StateReturn.ExitParent)
+				{
+					return StateReturn.True;
+				}
 				else
 				{
-					return false;
+					return StateReturn.False;
 				}
 			}
 
 			if (returnMainMenu)
-				return true;
+				return StateReturn.True;
 
 			if (Keyboard.GetState().IsKeyDown(Settings.keyInventory))
 			{
@@ -128,10 +133,10 @@ namespace ForbiddenArtsGame.code.states
 			if (playerEnding())
 			{
 				//end game
-				return true;
+				return StateReturn.True;
 			}
 
-			return false;
+			return StateReturn.False;
 		}
 
 		public override void Draw(GameTime gameTime)

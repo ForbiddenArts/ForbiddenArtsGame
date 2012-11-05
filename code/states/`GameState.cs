@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework;
 
 namespace ForbiddenArtsGame.code.states
 {
+	enum StateReturn
+	{
+		True,False,ExitParent
+	}
+
     abstract class GameState
     {
         protected GameState child;
@@ -47,7 +52,7 @@ namespace ForbiddenArtsGame.code.states
 
         //return true if the state should be exited from, eg selecting "return to game" option in ingame menu
         //must call child.Update, if true do nothing if false set child = null and update normally
-        public abstract bool Update(GameTime gameTime);
+        public abstract StateReturn Update(GameTime gameTime);
 
     }
 }

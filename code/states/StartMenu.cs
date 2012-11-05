@@ -45,7 +45,7 @@ namespace ForbiddenArtsGame.code.states
         {
             drawParent = false;
 			currentOption = Options.NewGame;
-			Settings.Fullscreen = true;
+			//Settings.Fullscreen = true;
 
 			optionRects = new Rectangle[(int)Options.Exit + 1] {
 				new Rectangle(741,332,160,49),//new game
@@ -175,17 +175,17 @@ namespace ForbiddenArtsGame.code.states
         }
 
 		//TODO: Mouse detection
-        public override bool Update(Microsoft.Xna.Framework.GameTime gameTime)
+		public override StateReturn Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             if (child != null)
             {
-				if (child.Update(gameTime))
+				if (child.Update(gameTime)==StateReturn.True)
 				{
 					child = null;
 					needMouseRelease = true;
 				}
 				else
-					return false;
+					return StateReturn.False;
             }
 
 			if (menuState == MenuState.Closed)
@@ -197,7 +197,7 @@ namespace ForbiddenArtsGame.code.states
 			}
 			else if (menuState == MenuState.Animating)
 			{
-				return false;
+				return StateReturn.False;
 			}
 			else
 			{
@@ -252,7 +252,7 @@ namespace ForbiddenArtsGame.code.states
 										doOptions();
 										break;
 									case Options.Exit:
-										return true;
+										return StateReturn.True;
 								}
 							}
 						}
@@ -288,12 +288,12 @@ namespace ForbiddenArtsGame.code.states
 							doOptions();
 							break;
 						case Options.Exit:
-							return true;
+							return StateReturn.True;
 					}
 				}
 				oldMouseLoc = newMouseLoc;
 			}
-            return false;
+			return StateReturn.False;
         }
 
 		protected void doNewGame()

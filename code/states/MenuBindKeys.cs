@@ -26,13 +26,13 @@ namespace ForbiddenArtsGame.code.states
 		//TODO:
 		//Mouse detection
 		//gamepad button rebinding
-		public override bool Update(Microsoft.Xna.Framework.GameTime gameTime)
+		public override StateReturn Update(Microsoft.Xna.Framework.GameTime gameTime)
 		{
 			if (!enterhasbeenreleased)
 			{
 				if (Keyboard.GetState().IsKeyDown(Keys.Enter))
 				{
-					return false;
+					return StateReturn.False;
 				}
 				else
 				{
@@ -44,7 +44,7 @@ namespace ForbiddenArtsGame.code.states
 				if (Keyboard.GetState().IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Back))
 				{
 					binding = false;
-					return false;
+					return StateReturn.False;
 				}
 				if (Keyboard.GetState().GetPressedKeys().Length > 0)
 				{
@@ -79,7 +79,7 @@ namespace ForbiddenArtsGame.code.states
 			else
 			{
 				if (Keyboard.GetState().IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Back))
-					return true;
+					return StateReturn.True;
 				if (Keyboard.GetState().IsKeyDown(Keys.Up))
 				{
 					if(currentOption != Options.keyMoveLeft)
@@ -94,7 +94,7 @@ namespace ForbiddenArtsGame.code.states
 				{
 					if (currentOption == Options.Back)
 					{
-						return true;
+						return StateReturn.True;
 					}
 					else
 					{
@@ -103,7 +103,7 @@ namespace ForbiddenArtsGame.code.states
 					}
 				}
 			}
-			return false;
+			return StateReturn.False;
 		}
 
 		public override void Draw(GameTime gameTime)

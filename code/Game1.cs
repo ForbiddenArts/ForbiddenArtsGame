@@ -76,7 +76,7 @@ namespace ForbiddenArtsGame.code
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
-			if (baseState.Update(gameTime))
+			if (baseState.Update(gameTime) == StateReturn.True)
 			{
 				SheetHandler.QuitLoad();
 				this.Exit();

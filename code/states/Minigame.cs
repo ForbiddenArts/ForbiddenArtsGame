@@ -66,7 +66,7 @@ namespace ForbiddenArtsGame.code.states
 			playerLoc = new Point(9, 2);
 		}
 
-		public override bool Update(GameTime gameTime)
+		public override StateReturn Update(GameTime gameTime)
 		{
 			KeyboardState newKeyboard = Keyboard.GetState();
 			if (untilNextControllerMove != TimeSpan.Zero)
@@ -84,7 +84,7 @@ namespace ForbiddenArtsGame.code.states
 			{
 				if (map[p.X, p.Y] != TileContents.BoxInGoal) won = false;
 			}
-			if(won) return true;
+			if (won) return StateReturn.True;
 
 			if ((newKeyboard.IsKeyDown(Keys.Up) && !lastState.IsKeyDown(Keys.Up)) || (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0.5 && untilNextControllerMove == TimeSpan.Zero))
 			{
@@ -324,7 +324,7 @@ namespace ForbiddenArtsGame.code.states
 			}
 
 			lastState = newKeyboard;
-			return false;
+			return StateReturn.False;
 		}
 
 		public override void Draw(GameTime gameTime)

@@ -80,7 +80,7 @@ namespace ForbiddenArtsGame.code.states
             oldState = Keyboard.GetState();
 		}
 
-		public override bool Update(GameTime gameTime)
+		public override StateReturn Update(GameTime gameTime)
 		{
 			if (binding)
 			{
@@ -118,22 +118,21 @@ namespace ForbiddenArtsGame.code.states
 							break;
                         }
 					binding = false;
-					return false;
+					return StateReturn.False;
 				}
 			}
 			MouseLoc = new Point(Mouse.GetState().X, Mouse.GetState().Y);
 			if (Mainrect.Contains(MouseLoc) && Mouse.GetState().LeftButton == ButtonState.Pressed)
 			{
                 if ((!NeedMouseLift) || Keyboard.GetState().IsKeyDown(Keys.Enter))
-					return true;
+					return StateReturn.ExitParent;
 			}
 			else
 				NeedMouseLift = false;
-            if (selected == 11 && Keyboard.GetState().IsKeyDown(Keys.Enter)) {
-                NeedMouseLift = false;
-				
-                return true;
-            }
+			//if (selected == 11 && Keyboard.GetState().IsKeyDown(Keys.Enter)) {
+			//    NeedMouseLift = false;
+			//    return StateReturn.ExitParent;
+			//}
 			if (MusicVolRect.Contains(MouseLoc) || selected == 0)
 			{
 				if (Mouse.GetState().LeftButton == ButtonState.Pressed)
@@ -196,7 +195,7 @@ namespace ForbiddenArtsGame.code.states
                 selected = (selected + 1) % numOptions;
             }
             oldState = Keyboard.GetState();
-			return false;
+			return StateReturn.False;
 		}
 
 		public override void Draw(GameTime gameTime)
